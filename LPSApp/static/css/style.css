@@ -12,7 +12,6 @@
     --background-color-event: #797979c3; 
     --background-color-date: #CF291D; 
     --font-color: #D3D3D3;
-    /* --hover-color: black; */
     --hover-color: #d3d3d3;
 }
 :root.light-mode {
@@ -36,7 +35,6 @@
 * {
     font-family: "Poppins", sans-serif;
     overflow-x: hidden;
-    cursor: url('/static/logos/cursor.png'), default;
 }
 
 body{
@@ -54,10 +52,6 @@ body{
 }
 
 body::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
-}
-
-.benefitDes::-webkit-scrollbar {
     display: none; /* for Chrome, Safari, and Opera */
 }
 
@@ -79,11 +73,6 @@ header {
     transition: top 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
 }
 
-header.team{
-    background-color: transparent;
-    box-shadow: none;
-}
-
 .logo {
     display: flex;
     justify-content: flex-start; /* Align logo to the left */
@@ -95,20 +84,6 @@ header.team{
     width: 140px; /* Adjust the logo's width */
     aspect-ratio: 1;
     overflow: visible;
-}
-
-@media (max-width: 600px) {
-    .logo {
-        display: flex;
-        justify-content: center; /* Center horizontally */
-        align-items: center; /* Center vertically */
-        margin-top: 0; /* Remove top and left margin */
-        margin-left: 15px;
-    }
-    .logo-image {
-        max-width: 100%; /* Ensure the logo doesn't exceed its container */
-        height: auto; /* Maintain the aspect ratio */
-    }
 }
 
 .navMain {
@@ -153,4 +128,181 @@ nav a{
 button {
     background-color: transparent;
     border: none;
+}
+
+/* Dropdown container (hidden by default) */
+.dropdown-content {
+    display: none; /* Hide by default */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    /* Add more styling for the dropdown items (e.g., padding, colors) here */
+}
+
+main{
+    margin: auto;
+    width: 100%;
+    overflow-x: visible;
+}
+
+span{
+    color: var(--font-color);
+    text-shadow: 0.75px 0.75px var(--dark-red);
+}
+
+.menuButton{
+    color: var(--white);
+    position: relative;
+}
+/*-----------------START OF FOOTER----------------------*/
+footer{
+    margin: 0;
+    position: relative;
+    z-index: 90;
+    box-shadow: var(--shadow);
+    background-color: var(--imagePlaceholder);
+    padding: 15px 15px;
+    text-align: center;
+    font-size: small;
+    height: 50px;
+}
+
+.footerText{
+    margin: 0;
+    color: var(--white);
+    font-size: 15px;
+}
+/*------------Side Container---------------------*/
+.sideMenu {
+    display: flex;
+    flex-direction: column; /* To stack the mode and up-icon vertically */
+    align-items: flex-end; /* To align them to the right side */
+    position: fixed;
+    bottom: 5px;
+    right: 8px;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.mode-up-container {
+    display: flex;
+    flex-direction: column; /* Place mode and up in a column */
+    align-items: center; /* Center them horizontally */
+    cursor: pointer;
+}
+
+.toggle .input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.toggle, .up {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background-color: #fff;
+    line-height: 1;
+    margin-bottom: 5px; /* Add margin to separate mode and up-icon */
+    cursor: pointer;
+}
+
+.icon {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    transition: transform 500ms;
+    cursor: pointer;
+}
+
+.up_arrow{
+    cursor: pointer;
+}
+
+.arrow-container {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-container img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.icon--moon {
+    transition-delay: 200ms;
+}
+
+.icon--sun {
+    transform: scale(0);
+}
+
+#switch:checked + .icon--moon {
+    transform: rotate(360deg) scale(0);
+}
+
+#switch:checked ~ .icon--sun {
+    transition-delay: 200ms;
+    transform: scale(1) rotate(360deg);
+}
+
+/*---------------------END OF HOME || START OF SPONSOR---------------*/
+.coverIMGSponsor {
+    width: 100%;
+    height: 700px;
+    position: relative;
+    overflow-y: hidden;
+    display: flex; /* Use flexbox for side-by-side layout */
+    flex-direction: row;
+    @media (max-width: 768px) {
+        flex-direction: column; /* Stack vertically on small screens */
+    }
+}
+
+.sponsorPic {
+    flex: 1; /* Take 50% of the available width */
+    height: 100%;
+    background-color: var(--background-color-about); /* Just for visualization */
+    @media (max-width: 768px) {
+        flex: none; /* Reset flex property */
+        width: 100%; /* Take full width on small screens */
+        height: 50%;
+    }
+}
+
+.pageTitleSponsor {
+    flex: 1; /* Take 50% of the available width */
+    height: 100%;
+    background-color: var(--background-color-event); /* Just for visualization */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 768px) {
+        flex: none; /* Reset flex property */
+        width: 100%; /* Take full width on small screens */
+        height: 50%;
+        order: -1;
+        padding-top: 40px;
+    }
+}
+
+.sponsorTitle {
+    text-align: center; 
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.sponsorTitleCont {
+    text-align: center; 
+    font-size: 30px;
+    margin-top: -30px;
 }
