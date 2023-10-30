@@ -1,0 +1,156 @@
+:root{
+    --light-red: #C39C95;
+    --dark-red: #CF291D;
+    --light-grey: #797979;
+    --dark-grey: #414141da;
+    --white: #D3D3D3;
+    --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    --imagePlaceholder: #222222;
+    --background-color: rgba(0, 0, 0, 0.815);
+    --background-color-header: #902c25;
+    --background-color-about: #902c25;
+    --background-color-event: #797979c3; 
+    --background-color-date: #CF291D; 
+    --font-color: #D3D3D3;
+    /* --hover-color: black; */
+    --hover-color: #d3d3d3;
+}
+:root.light-mode {
+    --background-color:  #D3D3D3;
+    --background-color-header: #CF291D;
+    --background-color-about: #cd8173;
+    --background-color-event: #A0A0A0; 
+    --background-color-date: #CF291D; 
+    --font-color: black;
+}
+
+:root.dark-mode{
+    --background-color: rgba(0, 0, 0, 0.815);
+    --background-color-header: #902c25;
+    --background-color-about: #902c25;
+    --background-color-event: #797979c3; 
+    --background-color-date: #CF291D; 
+    --font-color: #D3D3D3;
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+    cursor: url('/static/logos/cursor.png'), default;
+}
+
+body{
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--font-color);
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll; 
+    box-shadow: var(--shadow);
+}
+
+.btn-toggle{
+    cursor: pointer;
+}
+
+body::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+
+.benefitDes::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+
+header {
+    background-color: var(--background-color-header);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center; /* Center vertically */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    transition: top 0.3s ease;
+    padding: 10px 0;
+    height: 80px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: top 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+header.team{
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.logo {
+    display: flex;
+    justify-content: flex-start; /* Align logo to the left */
+    align-items: center;
+    margin: -10px 0px 60px 40px; 
+}
+
+.logo-image {
+    width: 140px; /* Adjust the logo's width */
+    aspect-ratio: 1;
+    overflow: visible;
+}
+
+@media (max-width: 600px) {
+    .logo {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        margin-top: 0; /* Remove top and left margin */
+        margin-left: 15px;
+    }
+    .logo-image {
+        max-width: 100%; /* Ensure the logo doesn't exceed its container */
+        height: auto; /* Maintain the aspect ratio */
+    }
+}
+
+.navMain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center; /* Center vertically */
+    flex-grow: 1;
+    margin: -10px 40px 60px 0px;
+}
+
+a button{
+    text-decoration: none;
+    color: var(--white); /* Add your preferred text color */
+    margin: 10px;
+    text-align: center;
+}
+
+nav a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: blink;
+    transition: transform 0.2s ease-out;
+}
+
+.navMain a:hover {
+    text-decoration: none;
+    transform: translateY(-10px);
+    position: relative; /* Add relative positioning for pseudo-element */
+}
+
+.navMain a button{
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.navMain a:hover button{
+    color: var(--hover-color);
+}
+
+button {
+    background-color: transparent;
+    border: none;
+}
