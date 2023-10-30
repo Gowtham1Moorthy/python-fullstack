@@ -7,3 +7,18 @@ TEMPLATE_DIRS = (
 
 def index(request):
     return render(request, 'index.html')
+
+def browse(request):
+    return render(request, 'browse.html')
+
+def previousWinner(request):
+    return render(request, 'previousWinner.html')
+
+def profile(request):
+    return render(request, 'profile.html')
+
+def purchaseHistory(request):
+    return render(request, 'purchaseHistory.html')
+
+def search(request):
+    return render(request, 'search.html')
