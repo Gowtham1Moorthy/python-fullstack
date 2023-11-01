@@ -5,6 +5,56 @@
 
 </head>
 <body>
+    <div class="cards">
+        <a href="/browse">
+            <div class="card">
+                <h2>Browse</h2>
+            </div>
+        </a>
+        <a href="/purchase-history">
+            <div class="card">
+                <h2>Order History</h2>
+            </div>
+        </a>
+        <a href="/profile">
+            <div class="card">
+                <h2>Profile</h2>
+            </div>
+        </a>        
+    </div>
 
+    <div class="searchCon">
+        <!-- form action: {% url 'home' %} -->
+        <form action="" method="post" onsubmit="showLoading()" autocomplete="on">
+            {% csrf_token %}
+            <div class="formCon">
+                <svg>Add svg</svg>
+                <input type="search">
+            </div>
+        </form>
+    </div>
+
+    <div class="lottoCards">
+        <a href="/home/power-ball">
+            <div class="lottoCard">
+                <h2>Power Ball</h2>
+            </div>
+        </a>
+        <a href="/home/mega-millions">
+            <div class="lottoCard">
+                <h2>Mega Millions</h2>
+            </div>
+        </a>
+        <a href="/home/lotto-texas">
+            <div class="lottoCard">
+                <h2>Lotto Texas</h2>
+            </div>
+        </a>
+        <a href="/home/texas-two-step">
+            <div class="lottoCard">
+                <h2>Texas Two Step</h2>
+            </div>
+        </a>
+    </div>
 </body>
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse
 
 # Create your views here.
 TEMPLATE_DIRS = (
@@ -6,6 +7,10 @@ TEMPLATE_DIRS = (
 )
 
 def index(request):
+    return render(request, 'index.html')
+
+def showLotto(request, lotto=None):
+    print(lotto)
     return render(request, 'index.html')
 
 def browse(request):
