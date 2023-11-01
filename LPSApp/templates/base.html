@@ -2,45 +2,49 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Load before anything else to reduce layout shift -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" media="all">
+        <script src="{% static 'js/script.js' %}" defer></script>
+
+        <title>{% block title %}{% endblock %}Red Raider Racing</title>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
-        <link rel="icon" type="image/x-icon" href="{% static 'logos/logo.png' %}">
-        <script src="{% static 'js/script.js' %}"></script>
-        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-        <title>{% block title %}{% endblock %}LPS  </title>
+
+        <!-- You don't need to use "keywords" because Google and Bing haven't used it since 2009 -->
+        <!-- <meta name="keywords" content="FSAE, Racing, Formula, RedRaiderRacing"> -->
+        
+        <meta name="description" content="A secure platform to buy Texas Lottery Tickets.">
+        <meta http-equiv="Cache-Control" content="max-age=31536000">
+        <meta name="theme-color" content="#000000">
+
+        <link rel="icon" type="image/x-icon" href="{% static 'logos/favicon.png' %}" media="all">
     </head>
     <body>
         <header id="mainHeader">
             <div class="logo">
-                <a href="/home">
-                    <div class="logo-image">
-                        <!-- <img src="{% static 'logos/logo.png' %}" alt="SER_Logo"> -->
-                    </div>
-                </a>
+                <a href="/home" class="logo-image" aria-label="Logo"></a>
             </div>
-
+             
             <nav class="navMain">
-                <a href="/search"><button>SEARCH</button></a>
-                <a href="/index"><button>HOME</button></a>
-                <a href="/browse"><button>BROWSE</button></a>
-                <a href="/previousWinner"><button>PREVIOUS WINNERS</button></a>
-                <a href="/purchaseHistory"><button>PURCHASE HISTORY</button></a>
-                <a href="/profile"><button>PROFILE</button></a>
+                <a href="/home"><button id="homeBtn">Home</button></a>
+                <a href="/team"><button id="teamBtn">Team</button></a>
+                <a href="/cars"><button id="carsBtn">Cars</button></a>
+                <a href="/sponsors"><button id="sponsorBtn">Sponsors</button></a>
+                <a href="/car-show"><button id="carShwBtn">Car Show</button></a>
+                <a href="/faq"><button id="faqBtn">FAQ</button></a>
             </nav>
             <nav class="altNav">
-                <div class="theMenu">
-                    <div class="theMenuButton">
-                        <button class="mobile-menu-button" aria-label="Toggle Menu">&#9776;</button>
+                <div class="dropdown">
+                    <button onclick="toggleMenu()" class="menuButton" aria-label="Menu">&#9776;</button>
+                    <div class="dropdown-content">
+                        <a href="/home"><button id="homeBtn1">Home</button></a>
+                        <a href="/team"><button id="teamBtn1">Team</button></a>
+                        <a href="/cars"><button id="carsBtn1">Cars</button></a>
+                        <a href="/sponsors"><button id="sponsorBtn1">Sponsors</button></a>
+                        <a href="/car-show"><button id="carShwBtn1">Car Show</button></a>
+                        <a href="/faq"><button id="faqBtn1">FAQ</button></a>
                     </div>
-                </div>
-                <div class="dropdown-content">
-                    <a href="/search"><button>SEARCH</button></a>
-                    <a href="/home"><button>HOME</button></a>
-                    <a href="/browse"><button>BROWSE</button></a>
-                    <a href="/previousWinner"><button>PREVIOUS WINNERS</button></a>
-                    <a href="/purchaseHistory"><button>PURCHASE HISTORY</button></a>
-                    <a href="/profile"><button>PROFILE</button></a>
                 </div>
             </nav>
         </header>
