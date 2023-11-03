@@ -5,7 +5,7 @@ urlpatterns = [
     #----------------Pages----------------
     path('',views.index, name='home'),
     path('home/',views.index, name='home'),
-    path('home/<str:lotto>',views.showLotto, name='home'),
+    path('home/<str:name>',views.showLotto, name='home'),
     path('browse/',views.browse, name='browse'),
     path('previous-winner/',views.previousWinner, name='previousWinner'),
     path('profile/',views.profile, name='profile'),

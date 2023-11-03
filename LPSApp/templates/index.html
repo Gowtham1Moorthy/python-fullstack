@@ -35,26 +35,13 @@
     </div>
 
     <div class="lottoCards">
-        <a href="/home/power-ball">
-            <div class="lottoCard">
-                <h2>Power Ball</h2>
-            </div>
-        </a>
-        <a href="/home/mega-millions">
-            <div class="lottoCard">
-                <h2>Mega Millions</h2>
-            </div>
-        </a>
-        <a href="/home/lotto-texas">
-            <div class="lottoCard">
-                <h2>Lotto Texas</h2>
-            </div>
-        </a>
-        <a href="/home/texas-two-step">
-            <div class="lottoCard">
-                <h2>Texas Two Step</h2>
-            </div>
-        </a>
+        {% for item in tickets %}
+            <a href="{% url 'home' name=item.name|slugify %}">
+                <div class="lottoCard">
+                    {{ item.name }}
+                </div>
+            </a>
+        {% endfor %}
     </div>
 </body>
 {% endblock %}

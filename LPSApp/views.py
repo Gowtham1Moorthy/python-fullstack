@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.urls import reverse
+from django.utils.text import slugify
+from .models import *
+from .functions.helper import *
 
 # Create your views here.
 TEMPLATE_DIRS = (
@@ -7,11 +9,25 @@ TEMPLATE_DIRS = (
 )
 
 def index(request):
-    return render(request, 'index.html')
+    ticket_data = Ticket.objects.all()
+    main_data = {"tickets": ticket_data}
+    return render(request, 'index.html', main_data)
 
-def showLotto(request, lotto=None):
-    print(lotto)
-    return render(request, 'index.html')
+def showLotto(request, name=None):
+    print(name)
+    if name:
+        name_deslug = deslugify(name)
+        print(name_deslug)
+        try:
+            ticket_item = Ticket.objects.get(name=name_deslug)
+            print(ticket_item)
+        except Ticket.DoesNotExist:
+            print(Ticket.DoesNotExist)
+            ticket_item = None
+    else:
+        ticket_item = None
+
+    return render(request, 'ticket_item.html', {"ticket_item": ticket_item})
 
 def browse(request):
     return render(request, 'browse.html')
