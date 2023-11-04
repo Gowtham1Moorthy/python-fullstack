@@ -17,10 +17,8 @@ def showLotto(request, name=None):
     print(name)
     if name:
         name_deslug = deslugify(name)
-        print(name_deslug)
         try:
             ticket_item = Ticket.objects.get(name=name_deslug)
-            print(ticket_item)
         except Ticket.DoesNotExist:
             print(Ticket.DoesNotExist)
             ticket_item = None
