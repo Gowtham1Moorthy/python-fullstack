@@ -11,7 +11,7 @@
     --secondary: rgb(246, 167, 48);
     --font: 'Poppins', sans-serif;
     --font-shadow: 3px 3px 0px var(--primary-dark);
-    --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    --shadow: var(--primary-dark) 0px 5px 0px;
 }
 
 :root.scratchman{
@@ -22,7 +22,7 @@
     --secondary: rgb(251, 200, 1);
     --font: 'chunk', sans-serif;
     --font-shadow: 3px 3px 0px var(--primary-dark);
-    --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    --shadow: var(--primary-dark) 0px 5px 0px;
 }
 
 html{
@@ -92,6 +92,10 @@ main{
     height: 73.5px;
 }
 
+.dropdown-content a{
+    text-decoration: none;
+}
+
 .dropdown-content button{
     background-color: var(--primary);
     border: none;
@@ -100,6 +104,9 @@ main{
     box-shadow: 4px 3px 0px var(--primary-dark);
     text-shadow: var(--font-shadow);
     border: 2px var(--primary-bright) solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dropdown-content button:hover{
@@ -115,7 +122,19 @@ main{
     transform: translateY(3px);
 }
 
-@media (max-width: 768px) {
+.dropdown-content button svg{
+    width: 30px;
+    height: 30px;
+    overflow: visible;
+    margin-right: min(20px, 10vw);
+}
+
+.dropdown-content button path{
+    filter: drop-shadow( 4px 8px 0px var(--primary-dark));
+    fill: var(--secondary);
+}
+
+@media (max-width: 939px) {
     .dropdown-content.show{
         display: flex;
         position: fixed;
@@ -129,12 +148,12 @@ main{
     }
 
     .dropdown-content.show button{
-        width: 70vw;
+        width: max(70vw,300px);
         height: 16vh;
         font-size: 40px;
         border-radius: 20px;
         box-shadow: 5px 12px 0px var(--primary-dark);
-        margin: 20px;
+        margin: min(20px,0vh);
         transition: box-shadow .1s linear, transform .1s linear;
         border: 5px var(--primary-bright) solid;
     }
@@ -146,17 +165,23 @@ main{
     .dropdown-content button:active{
         box-shadow: 3px 3px 0px var(--primary-dark);
     }
+
+    .dropdown-content button svg{
+        width: 12vw;
+        height: 12vw;
+        overflow: visible;
+    }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 940px) {
     .menuButton{
         display: none;
     }
     .dropdown-content{
         display: flex;
         position: absolute;
-        right: 0;
-        width: min(90vw, 900px);
+        right: .5vw;
+        width: min(92vw, 900px);
         z-index: 9;
         flex-direction: row;
     }

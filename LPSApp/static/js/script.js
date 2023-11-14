@@ -132,19 +132,31 @@ function displaySearchResults(results) {
   
     // Display each result
     if(results){
-        results.forEach(result => {
-            const slugResult = slugify(result);
-            const resultLink = document.createElement('a');
+        if(results.length > 0){
+            results.forEach(result => {
+                const slugResult = slugify(result);
+                const resultLink = document.createElement('a');
+                const lottoCard = document.createElement('div');
+                lottoCard.classList.add('lottoCard');
+                const lottoName = document.createElement('h2');
+    
+                resultLink.href = `../home/${slugResult}`;
+                lottoName.textContent = result;
+    
+                lottoCard.appendChild(lottoName);
+                resultLink.appendChild(lottoCard);
+                resultsContainer.appendChild(resultLink);
+            });
+        }
+        else{
             const lottoCard = document.createElement('div');
             lottoCard.classList.add('lottoCard');
             const lottoName = document.createElement('h2');
 
-            resultLink.href = `../home/${slugResult}`;
-            lottoName.textContent = result;
+            lottoName.textContent = 'No Results';
 
             lottoCard.appendChild(lottoName);
-            resultLink.appendChild(lottoCard);
-            resultsContainer.appendChild(resultLink);
-        });
+            resultsContainer.appendChild(lottoCard);
+        }
     }
 }

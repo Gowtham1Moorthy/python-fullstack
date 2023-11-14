@@ -4,6 +4,7 @@
     align-items: center;
     margin: 0 auto;
     flex-wrap: wrap;
+    max-width: 1400px;
 }
 
 .card, .lottoCard{
@@ -15,15 +16,27 @@
     box-shadow: 5px 10px 0px var(--primary-dark); 
     transition: box-shadow .1s linear, transform .1s linear;
     border: 5px var(--primary-bright) solid;
+    flex-direction: column;
 }
 
-.card:hover, .lottoCard:hover{
+.card svg{
+    width: min(20%, 90px);
+    aspect-ratio: 1;
+    overflow: visible;
+}
+
+.card path{
+    filter: drop-shadow( 4px 8px 0px var(--primary-dark));
+    fill: var(--secondary);
+}
+
+a .card:hover, a .lottoCard:hover{
     background-color: var(--primary-faded);
     box-shadow: 4px 7px 0px var(--primary-dark);
     transform: translateY(3px);
 }
 
-.card:active, .lottoCard:active{
+a .card:active, a .lottoCard:active{
     background-color: var(--primary-faded);
     box-shadow: 3px 3px 0px var(--primary-dark);
     transform: translateY(5px);
@@ -34,26 +47,30 @@
 }
 
 .cards h2, .lottoCards h2{
-    color: var(--secondary);
-    font-size: 34px;
+    font-size: 32px;
     text-shadow: var(--font-shadow);
     color: var(--secondary);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 939px) {
     .cards, .lottoCards{
         flex-direction: column;
     }
 
     .card, .lottoCard{
-        width: 90vw;
+        width: max(60vw, 325px);
         height: max(10vh,75px);
         margin: 1vh 0;
         border-radius: 20px;
+        flex-direction: row;
+    }
+
+    .card svg{
+        margin-right: min(20px, 10vw);
     }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 940px) {
     .cards, .lottoCards{
         flex-direction: row;
     }
@@ -63,5 +80,6 @@
         height: min(max(50vh, 95px),300px);
         margin: 1vh 1vw;
         border-radius: 40px;
+        flex-direction: column;
     }
 }
