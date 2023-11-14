@@ -50,6 +50,14 @@ function applyColorPalette(palette) {
     root.className = palette;
 }
 
-
-
-
+function toggleMenu(button){
+    const content = document.querySelector('.dropdown-content');
+    content.classList.toggle('show');
+    if(button.classList.contains('showing')){
+        button.innerHTML = '&#9776;'
+    }
+    else{
+        button.innerHTML = '&#x2715;'
+    }
+    button.classList.toggle('showing');
+}

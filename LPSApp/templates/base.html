@@ -3,8 +3,8 @@
 <html lang="en">
     <head>
         <!-- Load before anything else to reduce layout shift -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" media="all">
-        <script src="{% static 'js/script.js' %}" defer></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <script src="{% static 'js/script.js' %}"></script>
 
         <title>{% block title %}{% endblock %}LPS</title>
 
@@ -18,23 +18,21 @@
         <meta http-equiv="Cache-Control" content="max-age=31536000">
         <meta name="theme-color" content="#000000">
 
-        <link rel="icon" type="image/x-icon" href="{% static 'logos/favicon.png' %}" media="all">
+        <link rel="icon" type="image/x-icon" href="{% static 'logos/texas_lotto.webp'%}">
     </head>
     <body>
-        <header id="mainHeader">
-            <div class="logo">
-                <a href="/home" class="logo-image" aria-label="Logo"></a>
-            </div>
+        <header class="mainHeader">
+            <a href="/home" class="logo-image" aria-label="Logo">
+                <img src="{% static 'logos/texas_lotto.webp'%}" alt="Logo">
+            </a>
              
             <nav class="altNav">
-                <div class="dropdown">
-                    <button onclick="toggleMenu()" class="menuButton" aria-label="Menu">&#9776;</button>
-                    <div class="dropdown-content">
-                        <a href="/home"><button id="homeBtn1">Home</button></a>
-                        <a href="/browse"><button id="browseBtn1">Browse</button></a>
-                        <a href="/purchase-history"><button id="purchaseHBtn1">Order History</button></a>
-                        <a href="/profile"><button id="profileBtn1">Profile</button></a>
-                    </div>
+                <button onclick="toggleMenu(this)" class="menuButton" aria-label="Menu">&#9776;</button>
+                <div class="dropdown-content">
+                    <a href="/home"><button id="homeBtn1">HOME</button></a>
+                    <a href="/browse"><button id="browseBtn1">BROWSE</button></a>
+                    <a href="/purchase-history"><button id="purchaseHBtn1">ORDER HISTORY</button></a>
+                    <a href="/profile"><button id="profileBtn1">PROFILE</button></a>
                 </div>
             </nav>
         </header>

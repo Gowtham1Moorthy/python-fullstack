@@ -1,0 +1,48 @@
+.cards, .lottoCards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.card, .lottoCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary);
+}
+
+.cards a, .lottoCards a{
+    text-decoration: none;
+}
+
+.cards h2, .lottoCards h2{
+    color: var(--secondary);
+    font-size: 34px;
+}
+
+@media (max-width: 768px) {
+    .cards, .lottoCards{
+        flex-direction: column;
+    }
+
+    .card, .lottoCard{
+        width: 90vw;
+        height: max(10vh,75px);
+        margin: 1vh 0;
+        border-radius: 20px;
+    }
+}
+
+@media (min-width: 769px) {
+    .cards, .lottoCards{
+        flex-direction: row;
+    }
+
+    .card, .lottoCard{
+        width: min(400px, 30vw);
+        height: min(max(50vh, 95px),300px);
+        margin: 0 1vw;
+        border-radius: 40px;
+    }
+}
