@@ -6,10 +6,11 @@
 
 :root{
     --primary: rgb(30, 71, 130);
-    --primary-faded: rgba(30, 71, 130, .9);
+    --primary-faded: rgb(24, 55, 100);
     --primary-dark: rgb(19, 44, 80);
+    --primary-bright: rgb(36, 94, 175);
     --secondary: rgb(246, 167, 48);
-    --font: 'Poppins', sans-serif;
+    --font: 'chunk', sans-serif;
     --font-shadow: 3px 3px 0px var(--primary-dark);
     --shadow: var(--primary-dark) 0px 5px 0px;
 }
@@ -180,7 +181,7 @@ main{
     .dropdown-content{
         display: flex;
         position: absolute;
-        right: .5vw;
+        right: 2vw;
         width: min(92vw, 900px);
         z-index: 9;
         flex-direction: row;

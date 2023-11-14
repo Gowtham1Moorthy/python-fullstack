@@ -20,7 +20,7 @@
 }
 
 .card svg{
-    width: min(20%, 90px);
+    width: min(20%, 65px);
     aspect-ratio: 1;
     overflow: visible;
 }
