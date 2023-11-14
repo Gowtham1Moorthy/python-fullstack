@@ -4,7 +4,6 @@
     align-items: center;
     margin: 0 auto;
     flex-wrap: wrap;
-    max-width: 1400px;
 }
 
 .card, .lottoCard{
@@ -52,7 +51,7 @@ a .card:active, a .lottoCard:active{
     color: var(--secondary);
 }
 
-@media (max-width: 939px) {
+@media (max-width: 1199px) {
     .cards, .lottoCards{
         flex-direction: column;
     }
@@ -70,7 +69,7 @@ a .card:active, a .lottoCard:active{
     }
 }
 
-@media (min-width: 940px) {
+@media (min-width: 1200px) {
     .cards, .lottoCards{
         flex-direction: row;
     }

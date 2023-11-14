@@ -135,7 +135,7 @@ main{
     fill: var(--secondary);
 }
 
-@media (max-width: 939px) {
+@media (max-width: 1199px) {
     .dropdown-content.show{
         display: flex;
         position: fixed;
@@ -174,7 +174,7 @@ main{
     }
 }
 
-@media (min-width: 940px) {
+@media (min-width: 1200px) {
     .menuButton{
         display: none;
     }
