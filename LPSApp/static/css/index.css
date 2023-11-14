@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .card, .lottoCard{
@@ -10,6 +11,7 @@
     justify-content: center;
     align-items: center;
     background-color: var(--primary);
+    margin: 10px 0;
 }
 
 .cards a, .lottoCards a{
@@ -42,7 +44,7 @@
     .card, .lottoCard{
         width: min(400px, 30vw);
         height: min(max(50vh, 95px),300px);
-        margin: 0 1vw;
+        margin: 1vh 1vw;
         border-radius: 40px;
     }
 }
