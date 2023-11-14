@@ -12,10 +12,21 @@
     align-items: center;
     background-color: var(--primary);
     margin: 10px 0;
+    box-shadow: 5px 10px 0px var(--primary-dark); 
+    transition: box-shadow .1s linear, transform .1s linear;
+    border: 5px var(--primary-bright) solid;
 }
 
 .card:hover, .lottoCard:hover{
-    background-color: var(--primary-dark);
+    background-color: var(--primary-faded);
+    box-shadow: 4px 7px 0px var(--primary-dark);
+    transform: translateY(3px);
+}
+
+.card:active, .lottoCard:active{
+    background-color: var(--primary-faded);
+    box-shadow: 3px 3px 0px var(--primary-dark);
+    transform: translateY(5px);
 }
 
 .cards a, .lottoCards a{
@@ -25,6 +36,8 @@
 .cards h2, .lottoCards h2{
     color: var(--secondary);
     font-size: 34px;
+    text-shadow: var(--font-shadow);
+    color: var(--secondary);
 }
 
 @media (max-width: 768px) {

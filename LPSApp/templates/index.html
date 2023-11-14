@@ -24,12 +24,11 @@
     </div>
 
     <div class="searchCon">
-        <!-- form action: {% url 'home' %} -->
-        <form action="" method="post" onsubmit="showLoading()" autocomplete="on">
+        <form action="{% url 'home' %}" method="post" autocomplete="on">
             {% csrf_token %}
             <div class="formCon">
                 <svg>Add svg</svg>
-                <input type="search">
+                <input type="search" oninput="searchLotto(this, `{{ tickets }}`)">
             </div>
         </form>
     </div>

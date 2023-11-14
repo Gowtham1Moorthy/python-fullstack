@@ -2,7 +2,7 @@
 {% block title %}HOME - {% endblock %}
 {% block content %}
 <head>
-
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css" media="all">
 </head>
 <body>
     <div class="coverIMGSponsor">
@@ -13,6 +13,24 @@
             <h1 class="sponsorTitle">BROWSE</h1>
             <h2 class="sponsorTitleCont">you dirty gamblers!<span class="auto-typed"></span></h2>
         </div>
+    </div>
+    <div class="searchCon">
+        <form action="{% url 'home' %}" method="post" autocomplete="on">
+            {% csrf_token %}
+            <div class="formCon">
+                <svg>Add svg</svg>
+                <input type="search" oninput="searchLotto(this, `{{ tickets }}`)">
+            </div>
+        </form>
+    </div>
+    <div class="lottoCards">
+        {% for item in tickets %}
+            <a href="{% url 'home' name=item.name|slugify %}">
+                <div class="lottoCard">
+                    <h2>{{ item.name }}</h2>
+                </div>
+            </a>
+        {% endfor %}
     </div>
 </body>
 {% endblock %}

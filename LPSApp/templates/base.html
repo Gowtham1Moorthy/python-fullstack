@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scratchman">
     <head>
         <!-- Load before anything else to reduce layout shift -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -18,21 +18,22 @@
         <meta http-equiv="Cache-Control" content="max-age=31536000">
         <meta name="theme-color" content="#000000">
 
-        <link rel="icon" type="image/x-icon" href="{% static 'logos/texas_lotto.webp'%}">
+        <link rel="icon" type="image/x-icon" href="{% static 'logos/scratchman.png'%}">
     </head>
     <body>
         <header class="mainHeader">
             <a href="/home" class="logo-image" aria-label="Logo">
-                <img src="{% static 'logos/texas_lotto.webp'%}" alt="Logo">
+                <img src="{% static 'logos/scratchman.png'%}" alt="Logo">
             </a>
              
             <nav class="altNav">
                 <button onclick="toggleMenu(this)" class="menuButton" aria-label="Menu">&#9776;</button>
                 <div class="dropdown-content">
-                    <a href="/home"><button id="homeBtn1">HOME</button></a>
-                    <a href="/browse"><button id="browseBtn1">BROWSE</button></a>
-                    <a href="/purchase-history"><button id="purchaseHBtn1">ORDER HISTORY</button></a>
-                    <a href="/profile"><button id="profileBtn1">PROFILE</button></a>
+                    <a href="/home"><button id="homeBtn1">Home</button></a>
+                    <a href="/browse"><button id="browseBtn1">Browse</button></a>
+                    <a href="/purchase-history"><button id="purchaseHBtn1">Order History</button></a>
+                    <a href="/profile"><button id="profileBtn1">Profile</button></a>
+                    <button id="logout">Log Out</button>
                 </div>
             </nav>
         </header>

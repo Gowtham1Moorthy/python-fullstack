@@ -9,12 +9,12 @@ TEMPLATE_DIRS = (
 )
 
 def index(request):
-    ticket_data = Ticket.objects.all()
-    main_data = {"tickets": ticket_data}
-    return render(request, 'index.html', main_data)
+    if request.method == 'GET':
+        ticket_data = Ticket.objects.all()
+        main_data = {"tickets": ticket_data}
+        return render(request, 'index.html', main_data)
 
 def showLotto(request, name=None):
-    print(name)
     if name:
         name_deslug = deslugify(name)
         try:
@@ -28,7 +28,10 @@ def showLotto(request, name=None):
     return render(request, 'ticket_item.html', {"ticket_item": ticket_item})
 
 def browse(request):
-    return render(request, 'browse.html')
+    if request.method == 'GET':
+        ticket_data = Ticket.objects.all()
+        main_data = {"tickets": ticket_data}
+        return render(request, 'browse.html', main_data)
 
 def previousWinner(request):
     return render(request, 'previousWinner.html')

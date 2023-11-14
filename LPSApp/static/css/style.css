@@ -1,14 +1,32 @@
+@font-face {
+    font-family: 'chunk';
+    src: url("../fonts/ChunkFive-Regular.otf") format("opentype");
+    font-display: swap;
+}
+
 :root{
     --primary: rgb(30, 71, 130);
     --primary-faded: rgba(30, 71, 130, .9);
     --primary-dark: rgb(19, 44, 80);
     --secondary: rgb(246, 167, 48);
     --font: 'Poppins', sans-serif;
+    --font-shadow: 3px 3px 0px var(--primary-dark);
+    --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+:root.scratchman{
+    --primary: rgb(163, 12, 12);
+    --primary-faded: rgb(139, 14, 14);
+    --primary-dark: rgb(105, 9, 9);
+    --primary-bright: rgb(208, 13, 13);
+    --secondary: rgb(251, 200, 1);
+    --font: 'chunk', sans-serif;
+    --font-shadow: 3px 3px 0px var(--primary-dark);
     --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 html{
-    background-color: var(--background);
+    background-color: rgb(228, 204, 172);
 }
 
 *{
@@ -59,6 +77,7 @@ main{
     background-color: transparent;
     border: none;
     font-size: 30px;
+    text-shadow: var(--font-shadow);
     color: var(--secondary);
 }
 
@@ -74,15 +93,26 @@ main{
 }
 
 .dropdown-content button{
-    background-color: transparent;
+    background-color: var(--primary);
     border: none;
     color: var(--secondary);
     padding: 10px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
 }
 
 .dropdown-content button:hover{
     cursor: pointer;
-    background-color: var(--primary-dark);
+    background-color: var(--primary-faded);
+    box-shadow: 3px 2px 0px var(--primary-dark);
+    transform: translateY(1px);
+}
+
+.dropdown-content button:active{
+    background-color: var(--primary-faded);
+    box-shadow: 2px 1px 0px var(--primary-dark);
+    transform: translateY(3px);
 }
 
 @media (max-width: 768px) {
@@ -99,10 +129,22 @@ main{
     }
 
     .dropdown-content.show button{
-        width: 80vw;
-        height: 20vh;
+        width: 70vw;
+        height: 16vh;
         font-size: 40px;
         border-radius: 20px;
+        box-shadow: 5px 12px 0px var(--primary-dark);
+        margin: 20px;
+        transition: box-shadow .1s linear, transform .1s linear;
+        border: 5px var(--primary-bright) solid;
+    }
+
+    .dropdown-content button:hover{
+        box-shadow: 4px 8px 0px var(--primary-dark);
+    }
+
+    .dropdown-content button:active{
+        box-shadow: 3px 3px 0px var(--primary-dark);
     }
 }
 
