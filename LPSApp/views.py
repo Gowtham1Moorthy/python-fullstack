@@ -32,6 +32,9 @@ def browse(request):
         ticket_data = Ticket.objects.all().order_by('name')
         main_data = {"tickets": ticket_data}
         return render(request, 'browse.html', main_data)
+    
+def login(request):
+    return render(request, 'login.html')
 
 def previousWinner(request):
     return render(request, 'previousWinner.html')
