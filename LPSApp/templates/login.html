@@ -23,7 +23,38 @@
     </head>
     <body>
         <main class="main">
-            
+            <div class="formDiv">
+                <img src="{% static 'logos/scratchman.png'%}" alt="Logo" class="logo">
+            </div>
+            <form action="{% url 'login' %}" method="post" id="login" autocomplete="on" class="formDiv">
+                <h2>Sign Up</h2>
+                <!-- CSRF token needed to protect agained cross site attacks -->
+                {% csrf_token %} 
+
+                <div class="name">
+                    <div class="inputs">
+                        <input required type="text" name="firstName" autocomplete="given-name" class="input">
+                        <label class="user-label" for="firstName">First Name</label>
+                    </div>
+
+                    <div class="inputs">
+                        <input required type="text" name="lastName" autocomplete="family-name" class="input">
+                        <label class="user-label" for="lastName">Last Name</label>
+                    </div>
+                </div>
+                
+                <div class="inputs">
+                    <input required type="email" name="email" autocomplete="email" class="input">
+                    <label class="user-label" for="email">Email</label>
+                </div>
+
+                <div class="inputs">
+                    <input required type="date" name="dob" autocomplete="bday" class="input">
+                    <!-- <label class="user-label" for="dob">Date of Birth</label> -->
+                </div>
+
+                <input type="submit" value="Submit" class="submit">
+            </form>
         </main>
         {% include "partials/footer.html" %}
     </body>
