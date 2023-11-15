@@ -10,7 +10,7 @@ TEMPLATE_DIRS = (
 
 def index(request):
     if request.method == 'GET':
-        ticket_data = Ticket.objects.all()
+        ticket_data = Ticket.objects.all().order_by('name')
         main_data = {"tickets": ticket_data}
         return render(request, 'index.html', main_data)
 
@@ -29,7 +29,7 @@ def showLotto(request, name=None):
 
 def browse(request):
     if request.method == 'GET':
-        ticket_data = Ticket.objects.all()
+        ticket_data = Ticket.objects.all().order_by('name')
         main_data = {"tickets": ticket_data}
         return render(request, 'browse.html', main_data)
 
