@@ -19,13 +19,14 @@
         <meta name="theme-color" content="#000000">
 
         <link rel="icon" type="image/x-icon" href="{% static 'logos/scratchman.png'%}">
+        <script src="{% static 'js/login.js' %}"></script>
     </head>
     <body>
         <main class="main">
             <div class="formDiv">
                 <img src="{% static 'logos/scratchman.png'%}" alt="Logo" class="logo">
             </div>
-            <form action="{% url 'login' %}" method="post" id="login" autocomplete="on" class="formDiv">
+            <form action="{% url 'login' %}" method="post" id="signup" autocomplete="on" class="formDiv">
                 <h2>Sign Up</h2>
                 <!-- CSRF token needed to protect agained cross site attacks -->
                 {% csrf_token %} 
@@ -48,12 +49,41 @@
                 </div>
 
                 <div class="inputs">
+                    <input required type="password" name="password" autocomplete="new-password" class="input">
+                    <label class="user-label" for="password">Password</label>
+                </div>
+
+                <div class="inputs">
+                    <input required type="password" name="confimpassword" autocomplete="off" class="input">
+                    <label class="user-label" for="confimpassword">Confirm Password</label>
+                </div>
+
+                <div class="inputs">
                     <input required type="date" name="dob" autocomplete="bday" class="input">
                     <!-- <label class="user-label" for="dob">Date of Birth</label> -->
                 </div>
 
-                <input type="submit" value="Submit" class="submit">
+                <input type="submit" value="Sign Up" class="submit">
             </form>
+
+            <form action="{% url 'login' %}" method="post" id="login" autocomplete="on" class="formDiv show">
+                <h2>Login</h2>
+                <!-- CSRF token needed to protect agained cross site attacks -->
+                {% csrf_token %} 
+                
+                <div class="inputs">
+                    <input required type="email" name="email" autocomplete="email" class="input">
+                    <label class="user-label" for="email">Email</label>
+                </div>
+
+                <div class="inputs">
+                    <input required type="password" name="password" autocomplete="current-password" class="input">
+                    <label class="user-label" for="password">Password</label>
+                </div>
+
+                <input type="submit" value="Login" class="submit">
+            </form>
+            <button class="submit other login" onclick="switchLogin(this)">New User?</button>
         </main>
         {% include "partials/footer.html" %}
     </body>

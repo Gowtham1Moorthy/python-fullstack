@@ -31,7 +31,7 @@ h2{
     align-items: center;
     flex-direction: column;
     margin: 0 auto;
-    min-height: 77.6vh;
+    min-height: 85.3vh;
 }
 
 .name{
@@ -57,13 +57,18 @@ form.formDiv .name .inputs{
 }
 
 form.formDiv{
+    display: none;
     background-color: var(--primary);
     box-shadow: 5px 10px 0px var(--primary-dark); 
     transition: box-shadow .1s linear, transform .1s linear;
     border: 5px var(--primary-bright) solid;
     border-radius: 20px;
 }
-   
+
+form.formDiv.show{
+    display: flex;
+}
+
 .input {
     border: none;
     border-radius: 10px;
@@ -96,12 +101,12 @@ form.formDiv{
     border: 2px var(--secondary) solid;
 }
 
-input.submit:valid {
+input.submit:valid,.other {
     outline: none;
     border: 2px var(--primary-bright) solid;
 }
    
-.input:focus ~ label, input:valid ~ label {
+.input:focus ~ label, input:valid ~ label, input:visited{
     transform: translateY(-50%) scale(0.8);
     background-color: var(--primary);
     padding: 0 .2em;
@@ -124,6 +129,10 @@ input.submit:valid {
     font-size: 24px;
     cursor: pointer;
 }
+
+/* .other{
+    width: 10vw;
+} */
 
 .submit:hover{
     background-color: var(--primary-faded);
