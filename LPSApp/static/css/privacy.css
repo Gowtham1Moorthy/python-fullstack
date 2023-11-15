@@ -1,0 +1,15 @@
+div {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+#content-container {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto; /* Center the container horizontally */
+}
+h1, h2 {
+    text-align: center;
+}
+h2 {
+    margin-top: 20px;
+}
