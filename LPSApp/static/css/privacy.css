@@ -4,6 +4,7 @@
     text-align: left;
     max-width: 800px;
     margin: 0 auto; /* Center the container horizontally */
+    color: var(--body-font);
 }
 h1, h2 {
     text-align: center;

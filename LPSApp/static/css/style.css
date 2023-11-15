@@ -42,8 +42,8 @@
     --font-shadow: 3px 3px 0px var(--dark-primary-dark);
     --shadow: var(--dark-primary-dark) 0px 5px 0px;
     --background: rgb(30, 30, 30);
-    --body-font: white;
-    --underline: white;
+    --body-font: rgb(251, 200, 1);  
+    --underline: rgb(80, 80, 80);
 }
 
 body::-webkit-scrollbar {
