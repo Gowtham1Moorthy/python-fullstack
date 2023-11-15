@@ -39,6 +39,9 @@ def login(request):
 def previousWinner(request):
     return render(request, 'previousWinner.html')
 
+def privacy(request):
+    return render(request, 'privacy.html')
+
 def profile(request):
     return render(request, 'profile.html')
 
