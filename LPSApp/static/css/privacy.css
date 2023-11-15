@@ -1,0 +1,13 @@
+
+#content-container {
+    font-family: Arial, sans-serif;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto; /* Center the container horizontally */
+}
+h1, h2 {
+    text-align: center;
+}
+h2 {
+    margin-top: 20px;
+}
