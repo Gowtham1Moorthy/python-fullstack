@@ -1,6 +1,6 @@
 .logo{
     margin: 0 auto;
-    width: 50%;
+    width: 10%;
     aspect-ratio: 1;
 }
 
@@ -31,6 +31,7 @@ h2{
     align-items: center;
     flex-direction: column;
     margin: 0 auto;
+    min-height: 77.6vh;
 }
 
 .name{
@@ -105,8 +106,8 @@ input.submit:valid {
     background-color: var(--primary);
     padding: 0 .2em;
     color: var(--secondary);
-    border: 2px var(--secondary) solid;
-    border-radius: 10px;
+    /* border: 2px var(--secondary) solid; */
+    border-radius: 5px;
     padding: 5px;
 }
 
