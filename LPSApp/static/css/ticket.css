@@ -7,16 +7,12 @@ body{
     margin: 0;
 }
 
-.page{
+.main{
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     min-height: 77.6vh;
-    height: 100%;
-}
-
-.main{
-    margin-bottom: 0;
 }
 
 .card, .back{
@@ -29,6 +25,22 @@ body{
     transition: box-shadow .1s linear, transform .1s linear;
     border: 5px var(--primary-bright) solid;
     flex-direction: column;
+}
+
+.card h2{
+    font-size: 2.0em;
+    margin-bottom: 20px;
+}
+
+.card p{
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+.back{
+    font-size: 1.3em;
+    padding: 10px;
 }
 
 @media (max-width: 1199px) {
@@ -45,7 +57,6 @@ body{
     .back{
         border-radius: 20px;
         width: max(50vw, 325px);
-        margin-top: 10vh;
     }
 }
 
@@ -58,24 +69,8 @@ body{
     }
 
     .back{
-        width: min(300px, 15vw);
+        width: min(300px, 20vw);
         height: min(max(15vh, 22px),75px);
-        margin-top: 10vh;
         border-radius: 40px;
     }
-}
-
-.card h2{
-    font-size: 2.0em;
-    margin-bottom: 20px;
-}
-
-.card p{
-    font-size: 1.3em;
-    margin-bottom: 15px;
-    margin-top: 0;
-}
-
-.back{
-    font-size: 1.3em;
 }
