@@ -12,7 +12,7 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-height: 77.6vh;
+    min-height: 77vh;
 }
 
 .card, .back{
