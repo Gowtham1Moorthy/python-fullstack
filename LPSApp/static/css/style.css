@@ -5,11 +5,11 @@
 }
 
 :root{
-    --primary: rgb(30, 71, 130);
-    --primary-faded: rgb(24, 55, 100);
-    --primary-dark: rgb(19, 44, 80);
-    --primary-bright: rgb(36, 94, 175);
-    --secondary: rgb(246, 167, 48);
+    --primary: rgb(163, 12, 12);
+    --primary-faded: rgb(139, 14, 14);
+    --primary-dark: rgb(105, 9, 9);
+    --primary-bright: rgb(208, 13, 13);
+    --secondary: rgb(251, 200, 1);
     --font: 'chunk', sans-serif;
     --font-shadow: 3px 3px 0px var(--primary-dark);
     --shadow: var(--primary-dark) 0px 5px 0px;
@@ -58,6 +58,7 @@ body{
 
 main{
     margin-top: 90px;
+    margin-bottom: 20px;
 }
 
 .logo-image img{
