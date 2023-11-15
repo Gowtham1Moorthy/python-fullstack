@@ -277,19 +277,19 @@ main{
     max-height: 100%;
 }
 
-.icon--moon {
+.icon--sun {
     transition-delay: 200ms;
 }
 
-.icon--sun {
+.icon--moon {
     transform: scale(0);
 }
 
-#switch:checked + .icon--moon {
+#switch:checked + .icon--sun {
     transform: rotate(360deg) scale(0);
 }
 
-#switch:checked ~ .icon--sun {
+#switch:checked ~ .icon--moon {
     transition-delay: 200ms;
     transform: scale(1) rotate(360deg);
 }
