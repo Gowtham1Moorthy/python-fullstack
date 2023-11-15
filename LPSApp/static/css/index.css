@@ -49,6 +49,7 @@ a .card:active, a .lottoCard:active{
     font-size: 32px;
     text-shadow: var(--font-shadow);
     color: var(--secondary);
+    text-align: center;
 }
 
 @media (max-width: 1199px) {
