@@ -61,6 +61,7 @@ body{
 
 main{
     margin-top: 90px;
+    min-height: 77.6vh;
 }
 
 .logo-image img{
