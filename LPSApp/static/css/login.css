@@ -64,9 +64,10 @@ form.formDiv{
 }
    
 .input {
-    border: solid 2px #9e9e9e;
-    border-radius: 20px;
-    background: none;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 2px 5px 0px var(--primary-dark) inset;
+    background: var(--primary-faded);
     font-size: 20px;
     color: var(--secondary);
     text-shadow: var(--font-shadow);
@@ -91,6 +92,12 @@ form.formDiv{
    
 .input:focus, input:valid {
     outline: none;
+    border: 2px var(--secondary) solid;
+}
+
+input.submit:valid {
+    outline: none;
+    border: 2px var(--primary-bright) solid;
 }
    
 .input:focus ~ label, input:valid ~ label {
@@ -98,6 +105,9 @@ form.formDiv{
     background-color: var(--primary);
     padding: 0 .2em;
     color: var(--secondary);
+    border: 2px var(--secondary) solid;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .submit{
@@ -109,7 +119,6 @@ form.formDiv{
     text-shadow: var(--font-shadow);
     box-shadow: 5px 8px 0px var(--primary-dark); 
     transition: box-shadow .1s linear, transform .1s linear;
-    border: 2px var(--primary-bright) solid;
     border-radius: 10px;
     font-size: 24px;
     cursor: pointer;
