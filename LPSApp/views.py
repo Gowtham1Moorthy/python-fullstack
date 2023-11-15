@@ -48,5 +48,8 @@ def profile(request):
 def purchaseHistory(request):
     return render(request, 'purchaseHistory.html')
 
+def responsible(request):
+    return render(request, 'responsible.html')
+
 def search(request):
     return render(request, 'search.html')
