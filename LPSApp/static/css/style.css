@@ -13,6 +13,7 @@
     --font: 'chunk', sans-serif;
     --font-shadow: 3px 3px 0px var(--primary-dark);
     --shadow: var(--primary-dark) 0px 5px 0px;
+    --background: rgb(228, 204, 172);
 }
 
 :root.scratchman{
@@ -24,10 +25,27 @@
     --font: 'chunk', sans-serif;
     --font-shadow: 3px 3px 0px var(--primary-dark);
     --shadow: var(--primary-dark) 0px 5px 0px;
+    --background: rgb(228, 204, 172);
+}
+
+:root.dark-mode{
+    --primary: rgb(40, 40, 40);
+    --primary-faded: rgb(60, 60, 60);
+    --primary-dark: rgb(20, 20, 20);
+    --primary-bright: rgb(80, 80, 80);
+    --secondary: rgb(251, 200, 1);
+    --font: 'chunk', sans-serif;
+    --font-shadow: 3px 3px 0px var(--dark-primary-dark);
+    --shadow: var(--dark-primary-dark) 0px 5px 0px;
+    --background: rgb(30, 30, 30);
+}
+
+body::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
 }
 
 html{
-    background-color: rgb(228, 204, 172);
+    background-color: var(--background);
 }
 
 *{
@@ -191,4 +209,87 @@ main{
         font-size: 24px;
         border-radius: 10px;
     }
+}
+
+
+/*--------------SideMenu CSS--------------------*/
+.sideMenu {
+    display: flex;
+    flex-direction: column; /* To stack the mode and up-icon vertically */
+    align-items: flex-end; /* To align them to the right side */
+    position: fixed;
+    bottom: 5px;
+    right: 8px;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.mode-up-container {
+    display: flex;
+    flex-direction: column; /* Place mode and up in a column */
+    align-items: center; /* Center them horizontally */
+    cursor: pointer;
+}
+
+.toggle .input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.toggle, .up {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: solid 4px var(--primary-dark);
+    display: grid;
+    place-items: center;
+    background-color: var(--secondary);
+    line-height: 1;
+    margin-bottom: 5px; /* Add margin to separate mode and up-icon */
+    cursor: pointer;
+}
+
+.icon {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    transition: transform 500ms;
+    cursor: pointer;
+}
+
+.up_arrow{
+    cursor: pointer;
+}
+
+.arrow-container {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow-container svg {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.icon--moon {
+    transition-delay: 200ms;
+}
+
+.icon--sun {
+    transform: scale(0);
+}
+
+#switch:checked + .icon--moon {
+    transform: rotate(360deg) scale(0);
+}
+
+#switch:checked ~ .icon--sun {
+    transition-delay: 200ms;
+    transform: scale(1) rotate(360deg);
 }

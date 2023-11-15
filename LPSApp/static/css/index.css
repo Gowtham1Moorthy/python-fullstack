@@ -43,6 +43,7 @@ a .card:active, a .lottoCard:active{
 
 .cards a, .lottoCards a{
     text-decoration: none;
+    letter-spacing: 0.15em;
 }
 
 .cards h2, .lottoCards h2{
