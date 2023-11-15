@@ -44,6 +44,19 @@ body::-webkit-scrollbar {
     display: none; /* for Chrome, Safari, and Opera */
 }
 
+/* To style the track in Firefox */
+body::-moz-scrollbar {
+    width: 12px; /* Adjust the width as needed */
+}
+
+body::-moz-scrollbar-thumb {
+    background-color: transparent; /* Adjust the color as needed */
+}
+
+body::-moz-scrollbar-track {
+    background-color: transparent; /* Adjust the color as needed */
+}
+
 html{
     background-color: var(--background);
 }
@@ -54,6 +67,9 @@ html{
 
 body{
     margin: 0;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    overflow: overlay;
 }
 
 main{
