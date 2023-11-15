@@ -13,13 +13,18 @@
 .info {
     order: 2;
     display: flex;
-    flex-direction: row;
+    align-items: center; /* Align items vertically in the center */
 }
 
 .privacy,
 .terms,
+.gambling,
 .spacer {
     margin: 0 10px; /* Adjust the value based on your preference */
+}
+
+.info p {
+    margin: 0; 
 }
 
 .info a {
@@ -40,4 +45,5 @@ footer {
     align-items: center;
     font-size: 1.2em;
     cursor: pointer;
+    color: var(--secondary);
 }
