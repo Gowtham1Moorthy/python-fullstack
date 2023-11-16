@@ -1,7 +1,8 @@
 .logo{
     margin: 0 auto;
-    width: 10%;
+    width: 30%;
     aspect-ratio: 1;
+    max-width: 170px;
 }
 
 .formDiv{
@@ -47,7 +48,7 @@ h2{
 form.formDiv .inputs{
     width: 100%;
     position: relative;
-    margin: 10px auto;
+    margin: 20px auto;
 }
 
 form.formDiv .name .inputs{
@@ -107,9 +108,8 @@ input.submit:valid,.other {
 }
    
 .input:focus ~ label, input:valid ~ label, input:visited{
-    transform: translateY(-50%) scale(0.8);
-    background-color: var(--primary);
-    padding: 0 .2em;
+    transform: translateY(-100%) scale(1.1);
+    /* background-color: var(--primary); */
     color: var(--secondary);
     /* border: 2px var(--secondary) solid; */
     border-radius: 5px;
@@ -117,7 +117,7 @@ input.submit:valid,.other {
 }
 
 .submit{
-    width: 20vw;
+    width: 30vw;
     margin: 20px;
     padding: 10px 20px;
     background-color: var(--primary-faded);
