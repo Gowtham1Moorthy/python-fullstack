@@ -62,7 +62,7 @@ a .card:active, a .lottoCard:active{
         width: max(60vw, 325px);
         height: max(10vh,75px);
         margin: 1vh 0;
-        border-radius: 20px;
+        border-radius: 10px;
         flex-direction: row;
     }
 
@@ -80,7 +80,7 @@ a .card:active, a .lottoCard:active{
         width: min(400px, 30vw);
         height: min(max(50vh, 95px),300px);
         margin: 1vh 1vw;
-        border-radius: 40px;
+        border-radius: 10px;
         flex-direction: column;
     }
 }

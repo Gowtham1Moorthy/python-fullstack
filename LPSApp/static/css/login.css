@@ -62,7 +62,7 @@ form.formDiv{
     box-shadow: 5px 10px 0px var(--primary-dark); 
     transition: box-shadow .1s linear, transform .1s linear;
     border: 5px var(--primary-bright) solid;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 form.formDiv.show{
