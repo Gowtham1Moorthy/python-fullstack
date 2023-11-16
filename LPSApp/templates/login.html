@@ -30,6 +30,9 @@
                 <input required type="email" name="email" autocomplete="email" class="input">
                 <label class="user-label" for="email">Email</label>
             </div>
+            {% if emailError %}
+            <p class="error">Email already exists!</p>
+            {% endif %}
 
             <div class="inputs">
                 <input required type="password" name="password" autocomplete="new-password" class="input">
@@ -37,13 +40,15 @@
             </div>
 
             <div class="inputs">
-                <input required type="password" name="confimpassword" autocomplete="off" class="input">
+                <input required type="password" name="confirmpassword" autocomplete="off" class="input">
                 <label class="user-label" for="confimpassword">Confirm Password</label>
             </div>
+            {% if passwordError %}
+            <p class="error">Passwords do not match!</p>
+            {% endif %}
 
             <div class="inputs">
                 <input required type="date" name="dob" autocomplete="bday" class="input">
-                <!-- <label class="user-label" for="dob">Date of Birth</label> -->
             </div>
 
             <input type="submit" value="Sign Up" class="submit">
@@ -65,6 +70,9 @@
             </div>
 
             <input type="submit" value="Login" class="submit">
+            {% if noUser %}
+            <p class="error">Username or password is incorrect!</p>
+            {% endif %}
         </form>
         <button class="submit other login" onclick="switchLogin(this)">New User?</button>
 </body>

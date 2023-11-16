@@ -162,6 +162,10 @@ main{
     fill: var(--secondary);
 }
 
+#logoutForm{
+    display: none;
+}
+
 @media (max-width: 1199px) {
     .dropdown-content.show{
         display: flex;

@@ -145,6 +145,10 @@ input.submit:valid,.other {
     transform: translateY(5px);
 }
 
+.error{
+    color: var(--secondary);
+}
+
 @media (max-width: 768px) {
     form.formDiv .name .inputs{
         width: 100% ;
