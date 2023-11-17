@@ -116,3 +116,10 @@ def responsible(request):
         "loggedIn": is_logged_in,
     }
     return render(request, 'responsible.html', main_data)
+
+def terms(request):
+    is_logged_in = request.user != AnonymousUser()
+    main_data = {
+        "loggedIn": is_logged_in,
+    }
+    return render(request, 'terms.html', main_data)
