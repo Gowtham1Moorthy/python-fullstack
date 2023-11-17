@@ -21,4 +21,5 @@ h2 {
 #content-container p,
 #content-container li {
     font-size: 1.2em;
+    text-align: left;
 }
