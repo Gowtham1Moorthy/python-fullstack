@@ -28,4 +28,5 @@ h2 {
 
 #content-container p, li {
     font-size: 1.2em;
+    text-align: left;
 }
