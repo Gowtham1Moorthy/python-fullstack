@@ -1,7 +1,8 @@
 .logo{
     margin: 0 auto;
-    width: 10%;
+    width: 30%;
     aspect-ratio: 1;
+    max-width: 170px;
 }
 
 .formDiv{
@@ -30,7 +31,6 @@ h2{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 0 auto;
     min-height: 85.3vh;
 }
 
@@ -47,7 +47,7 @@ h2{
 form.formDiv .inputs{
     width: 100%;
     position: relative;
-    margin: 10px auto;
+    margin: 20px auto;
 }
 
 form.formDiv .name .inputs{
@@ -62,7 +62,7 @@ form.formDiv{
     box-shadow: 5px 10px 0px var(--primary-dark); 
     transition: box-shadow .1s linear, transform .1s linear;
     border: 5px var(--primary-bright) solid;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 form.formDiv.show{
@@ -107,9 +107,8 @@ input.submit:valid,.other {
 }
    
 .input:focus ~ label, input:valid ~ label, input:visited{
-    transform: translateY(-50%) scale(0.8);
-    background-color: var(--primary);
-    padding: 0 .2em;
+    transform: translateY(-100%) scale(1.1);
+    /* background-color: var(--primary); */
     color: var(--secondary);
     /* border: 2px var(--secondary) solid; */
     border-radius: 5px;
@@ -117,7 +116,7 @@ input.submit:valid,.other {
 }
 
 .submit{
-    width: 20vw;
+    width: 30vw;
     margin: 20px;
     padding: 10px 20px;
     background-color: var(--primary-faded);
@@ -144,6 +143,10 @@ input.submit:valid,.other {
     background-color: var(--primary-faded);
     box-shadow: 3px 3px 0px var(--primary-dark);
     transform: translateY(5px);
+}
+
+.error{
+    color: var(--secondary);
 }
 
 @media (max-width: 768px) {

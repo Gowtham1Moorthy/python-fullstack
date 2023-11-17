@@ -3,15 +3,14 @@ from . import views
 
 urlpatterns = [
     #----------------Pages----------------
-    path('',views.index, name='home'),
+    path('',views.loginUser, name='login'),
     path('home/',views.index, name='home'),
     path('home/<str:name>',views.showLotto, name='home'),
     path('browse/',views.browse, name='browse'),
-    path('login/',views.login, name='login'),
+    path('login/',views.loginUser, name='login'),
     path('previous-winner/',views.previousWinner, name='previousWinner'),
     path('privacy/',views.privacy, name='privacy'),
     path('profile/',views.profile, name='profile'),
     path('purchase-history/',views.purchaseHistory, name='purchaseHistory'),
     path('responsible/',views.responsible, name='responsible'),
-    path('search/',views.search, name='search'),
 ]
