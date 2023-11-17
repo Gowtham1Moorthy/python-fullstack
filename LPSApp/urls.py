@@ -13,4 +13,5 @@ urlpatterns = [
     path('profile/',views.profile, name='profile'),
     path('purchase-history/',views.purchaseHistory, name='purchaseHistory'),
     path('responsible/',views.responsible, name='responsible'),
+    path('terms/',views.terms, name='terms'),
 ]
