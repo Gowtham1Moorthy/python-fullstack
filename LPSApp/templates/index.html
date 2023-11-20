@@ -30,7 +30,7 @@
 
     <div class="lottoCards">
         {% for ticket in tickets|slice:":4" %}
-            <a href="{% url 'home' name=ticket.name|slugify %}">
+            <a href="{% url 'browse' name=ticket.name|slugify %}">
                 <div class="lottoCard">
                     <h2>{{ ticket.name }}</h2>
                 </div>

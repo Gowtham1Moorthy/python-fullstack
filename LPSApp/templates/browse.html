@@ -9,7 +9,7 @@
 
     <div class="lottoCards">
         {% for item in tickets %}
-            <a href="{% url 'home' name=item.name|slugify %}">
+            <a href="{% url 'browse' name=item.name|slugify %}">
                 <div class="lottoCard">
                     <h2>{{ item.name }}</h2>
                 </div>
