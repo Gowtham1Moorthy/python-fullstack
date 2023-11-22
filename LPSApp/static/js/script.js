@@ -74,6 +74,7 @@ function toggleMenu(button){
 function disableScrolling() {
     const header = document.querySelector('header');
     const scrollY = window.scrollY;
+    console.log(scrollY);
 
     header.removeAttribute('id');
     document.body.style.position = "fixed";
@@ -84,6 +85,7 @@ function disableScrolling() {
 function enableScrolling() {
     const header = document.querySelector('header');
     const scrollY = parseInt(document.body.style.top);
+    console.log(scrollY);
 
     header.setAttribute('id', 'mainHeader');
     document.body.style.position = "";
@@ -164,5 +166,45 @@ function displaySearchResults(results) {
             lottoCard.appendChild(lottoName);
             resultsContainer.appendChild(lottoCard);
         }
+    }
+}
+
+function showLotto(card){
+    const cards = document.querySelectorAll(".lottoCard");
+    if(card.classList.contains('show')){
+        disableScrolling();
+        card.innerHTML = '&#x2715;';
+        card.classList.remove('show');
+        card.parentElement.classList.remove("active");
+        const cardInfo = card.parentElement.querySelector('.hidden');
+
+        cards.forEach(c => {
+            if (c !== card.parentElement) {
+                c.classList.remove("active");
+                const otherCard = c.querySelector('.hidden');
+                otherCard.style.opacity = 0;
+                otherCard.style.display = "none";
+
+                const button = c.querySelector('button');
+                button.innerHTML = '';
+                button.classList.add('show');
+                button.classList.remove("active");
+            }
+        });
+        card.parentElement.classList.add("active");
+        cardInfo.style.display = "block";
+
+        setTimeout(() => {
+            cardInfo.style.opacity = 1;
+        }, 200);
+    }
+    else{
+        enableScrolling();
+        card.innerHTML = '';
+        card.classList.add('show');
+        card.parentElement.classList.remove("active");
+        const cardInfo = card.parentElement.querySelector('.hidden');
+        cardInfo.style.opacity = 0;
+        cardInfo.style.display = "none";
     }
 }

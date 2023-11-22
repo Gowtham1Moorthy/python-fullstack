@@ -16,6 +16,8 @@
     transition: box-shadow .1s linear, transform .1s linear;
     border: 5px var(--primary-bright) solid;
     flex-direction: column;
+    cursor: pointer;
+    transition: all .2s ease;
 }
 
 .card svg{
@@ -29,13 +31,58 @@
     fill: var(--secondary);
 }
 
-a .card:hover, a .lottoCard:hover{
+.lottoCard p{
+    font-size: 18px;
+    text-shadow: var(--font-shadow);
+    color: var(--secondary);
+    text-align: center;
+}
+
+.lottoCard h3{
+    font-size: 42px;
+    text-shadow: var(--font-shadow);
+    color: var(--secondary);
+    text-align: center;
+}
+
+.lottoCard.active {
+    width: unset;
+    height: unset;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    padding: 30px;
+    cursor: unset;
+}
+
+.lottoCard button.show{
+    border: none;
+    background-color: transparent;
+    position: absolute;
+}
+
+.lottoCard button:not(.show){
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border-radius: 50%;
+    border: var(--secondary) 2px solid;
+    background-color: var(--primary-dark);
+    color: var(--secondary);
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+}
+
+.card:hover, .lottoCard:not(.active):hover{
     background-color: var(--primary-faded);
     box-shadow: 4px 7px 0px var(--primary-dark);
     transform: translateY(3px);
 }
 
-a .card:active, a .lottoCard:active{
+.card:active, .lottoCard:not(.active):active{
     background-color: var(--primary-faded);
     box-shadow: 3px 3px 0px var(--primary-dark);
     transform: translateY(5px);
@@ -53,6 +100,35 @@ a .card:active, a .lottoCard:active{
     text-align: center;
 }
 
+.hidden{
+    opacity: 0;
+    display: none;
+}
+
+.numbers{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.numbers p{
+    border-radius: 50%;
+    padding: 20px;
+    background-color: var(--background);
+    border: var(--secondary) 4px solid;
+    margin: 10px;
+    text-shadow: none;
+    color: var(--primary-dark);
+    aspect-ratio: 1;
+    width: 20px;
+}
+
+.numbers p.powerball{
+    background-color: red;
+    color: var(--secondary);
+}
+
 @media (max-width: 1199px) {
     .cards, .lottoCards{
         flex-direction: column;
@@ -63,11 +139,28 @@ a .card:active, a .lottoCard:active{
         height: max(10vh,75px);
         margin: 1vh 0;
         border-radius: 10px;
+    }
+
+    .card{
         flex-direction: row;
     }
 
     .card svg{
         margin-right: min(20px, 10vw);
+    }
+
+    .lottoCard button.show{
+        width: max(60vw, 325px);
+        height: max(10vh,75px);
+    }
+
+    .lottoCard.active {
+        padding: 10px;
+    }
+
+    .numbers p{
+        padding: 10px;
+        margin: 5px;
     }
 }
 
@@ -82,5 +175,14 @@ a .card:active, a .lottoCard:active{
         margin: 1vh 1vw;
         border-radius: 10px;
         flex-direction: column;
+    }
+
+    .lottoCard button.show{
+        width: min(400px, 30vw);
+        height: min(max(50vh, 95px),300px);
+    }
+
+    .lottoCard.active {
+        padding: 30px;
     }
 }

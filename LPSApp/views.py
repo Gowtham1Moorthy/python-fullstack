@@ -21,20 +21,6 @@ def index(request):
         }
         return render(request, 'index.html', main_data)
 
-def showLotto(request, name=None):
-    is_logged_in = request.user != AnonymousUser()
-    if name:
-        name_deslug = deslugify(name)
-        try:
-            ticket_item = Ticket.objects.get(name=name_deslug)
-        except Ticket.DoesNotExist:
-            print(Ticket.DoesNotExist)
-            ticket_item = None
-    else:
-        ticket_item = None
-
-    return render(request, 'ticket_item.html', {"ticket_item": ticket_item, "loggedIn": is_logged_in,})
-
 def browse(request):
     if request.method == 'GET':
         ticket_data = Ticket.objects.all().order_by('name')

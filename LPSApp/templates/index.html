@@ -27,15 +27,6 @@
     </div>
 
     {% include "partials/search.html" %}
-
-    <div class="lottoCards">
-        {% for ticket in tickets|slice:":4" %}
-            <a href="{% url 'browse' name=ticket.name|slugify %}">
-                <div class="lottoCard">
-                    <h2>{{ ticket.name }}</h2>
-                </div>
-            </a>
-        {% endfor %}
-    </div>
+    {% include "partials/cards.html" %}
 </body>
 {% endblock %}

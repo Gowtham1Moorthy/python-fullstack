@@ -6,7 +6,6 @@ urlpatterns = [
     path('',views.loginUser, name='login'),
     path('home/',views.index, name='home'),
     path('browse/',views.browse, name='browse'),
-    path('browse/<str:name>',views.showLotto, name='browse'),
     path('login/',views.loginUser, name='login'),
     path('previous-winner/',views.previousWinner, name='previousWinner'),
     path('privacy/',views.privacy, name='privacy'),
