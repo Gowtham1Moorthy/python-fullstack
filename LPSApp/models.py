@@ -42,7 +42,7 @@ class UserProfile(models.Model):
     # Add additional fields related to the user
 
     def __str__(self):
-        return self.user.username
+        return f'{self.user.first_name} {self.user.last_name}'
     
 class SavedCard(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
@@ -60,7 +60,7 @@ class SavedCard(models.Model):
 class Order(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now_add=True)
-    # Add other fields related to the order
+    # TODO Add more order info
 
     def __str__(self):
         return f"Order {self.id} by {self.user_profile.user.username} on {self.order_date}"

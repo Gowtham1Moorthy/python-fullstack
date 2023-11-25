@@ -32,8 +32,10 @@ def browse(request):
             "loggedIn": is_logged_in,
         }
         return render(request, 'browse.html', main_data)
+    # TODO Add a post request to handle buying stuff (redirect to puchase screen)
 
 def loginUser(request):
+    # TODO on all errors make sure it jumps to that error on the page
     if request.method == 'GET':
         return render(request, 'login.html')
     else:
@@ -46,6 +48,7 @@ def loginUser(request):
                 email = request.POST.get('email')
                 confirmPassword = request.POST.get('confirmpassword')
                 if password == confirmPassword:
+                    # TODO implement dob checker
                     user = User.objects.create_user(email, email, password)
                     user.first_name = firstName
                     user.last_name = lastName
@@ -58,11 +61,11 @@ def loginUser(request):
                     print('Passwords dont match')
                     return render(request, 'login.html',{'passwordError':True})
             except Exception as e:
-                print("Error creating")
+                print("Error creating:", e)
                 return render(request, 'login.html',{'emailError':True})
         if username:
             user = authenticate(request, username=username, password=password)
-            print(user)
+            print(f"Username: {user}")
             if user is not None:
                 login(request, user)
                 print('logged in')
@@ -102,7 +105,7 @@ def profile(request):
                 existing_card.expiration_date = card_data['expiration_date']
                 # Add other fields related to the card information
                 existing_card.save()
-                messages.success(request, 'Card updated successfully!') # ! Change this to not be a message
+                messages.success(request, 'Card updated successfully!') # TODO Change this to not be a message
             else:
                 # If no card exists, create a new one
                 SavedCard.objects.create(
@@ -112,10 +115,10 @@ def profile(request):
                     expiration_date=card_data['expiration_date']
                     # Add other fields related to the card information
                 )
-                messages.success(request, 'Card saved successfully!') # ! Change this to not be a message
-            return redirect('profile')
+                messages.success(request, 'Card saved successfully!') # TODO Change this to not be a message
+            return redirect('profile') # ? is this needed
         else:
-            messages.error(request, 'Error saving/updating card. Please check the form.') # ! Change this to not be a message
+            messages.error(request, 'Error saving/updating card. Please check the form.') # TODO Change this to not be a message
 
     # Handle GET request
     main_data = {

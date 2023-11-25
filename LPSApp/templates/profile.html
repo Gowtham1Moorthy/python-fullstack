@@ -17,6 +17,7 @@
             {% csrf_token %}
             
             <label for="card_number">Card Number:</label>
+            <!-- TODO add max length for all inputs -->
             <input type="text" id="card_number" name="card_number" value="{{ user_profile.savedcard_set.first.card_number }}" required>
             <br>
             
@@ -39,6 +40,7 @@
             {% csrf_token %}
             
             <label for="card_number">Card Number:</label>
+            <!-- TODO add max length for all inputs -->
             <input type="text" id="card_number" name="card_number" required>
             <br>
             
