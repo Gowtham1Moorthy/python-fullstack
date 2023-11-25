@@ -5,6 +5,8 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+from .forms import CardForm
 
 # Create your views here.
 TEMPLATE_DIRS = (
@@ -48,6 +50,7 @@ def loginUser(request):
                     user.first_name = firstName
                     user.last_name = lastName
                     user.save()
+                    UserProfile.objects.create(user=user)
                     print('created')
                     login(request, user)
                     return redirect('/home/')
@@ -84,15 +87,52 @@ def privacy(request):
 
 @login_required(login_url='/login/')
 def profile(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        form = CardForm(request.POST)
+        if form.is_valid():
+            card_data = form.cleaned_data
+            # Check if the user already has a saved card
+            existing_card = user_profile.savedcard_set.first()
+            if existing_card:
+                # If a card exists, update its details
+                existing_card.card_number = card_data['card_number']
+                existing_card.cardholder_name = card_data['cardholder_name']
+                existing_card.expiration_date = card_data['expiration_date']
+                # Add other fields related to the card information
+                existing_card.save()
+                messages.success(request, 'Card updated successfully!') # ! Change this to not be a message
+            else:
+                # If no card exists, create a new one
+                SavedCard.objects.create(
+                    user_profile=user_profile,
+                    card_number=card_data['card_number'],
+                    cardholder_name=card_data['cardholder_name'],
+                    expiration_date=card_data['expiration_date']
+                    # Add other fields related to the card information
+                )
+                messages.success(request, 'Card saved successfully!') # ! Change this to not be a message
+            return redirect('profile')
+        else:
+            messages.error(request, 'Error saving/updating card. Please check the form.') # ! Change this to not be a message
+
+    # Handle GET request
     main_data = {
-        "loggedIn":True,
+        "loggedIn": True,
+        'user_profile': user_profile,
+        'form': CardForm() if not user_profile.savedcard_set.exists() else None
     }
     return render(request, 'profile.html', main_data)
 
 @login_required(login_url='/login/')
 def purchaseHistory(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    orders = Order.objects.filter(user_profile=user_profile)
     main_data = {
         "loggedIn":True,
+        "user_profile": user_profile,
+        "orders": orders,
     }
     return render(request, 'purchaseHistory.html', main_data)
 

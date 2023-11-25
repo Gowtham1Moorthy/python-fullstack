@@ -1,5 +1,6 @@
 import locale
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.utils import timezone
 
@@ -35,3 +36,31 @@ class Ticket(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # Add additional fields related to the user
+
+    def __str__(self):
+        return self.user.username
+    
+class SavedCard(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    card_number = models.CharField(max_length=16)
+    cardholder_name = models.CharField(max_length=255)
+    expiration_date = models.DateField()
+    # Add other fields related to the card information
+
+    def last_four_digits(self):
+        return self.card_number[-4:]
+
+    def __str__(self):
+        return f"Card ending in {self.last_four_digits()} for {self.user_profile.user.username}"
+    
+class Order(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order_date = models.DateTimeField(auto_now_add=True)
+    # Add other fields related to the order
+
+    def __str__(self):
+        return f"Order {self.id} by {self.user_profile.user.username} on {self.order_date}"
