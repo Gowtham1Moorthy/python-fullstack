@@ -115,11 +115,11 @@
 .numbers p{
     border-radius: 50%;
     padding: 20px;
-    background-color: var(--background);
+    background-color: var(--primary-dark);
     border: var(--secondary) 4px solid;
     margin: 10px;
     text-shadow: none;
-    color: var(--primary-dark);
+    color: var(--secondary);
     aspect-ratio: 1;
     width: 20px;
 }
