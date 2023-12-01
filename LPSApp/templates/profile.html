@@ -1,18 +1,61 @@
 {% extends "base.html" %}
-{% block title %}HOME - {% endblock %}
+{% block title %}Profile - {% endblock %}
 {% block content %}
 <head>
 
 </head>
 <body>
-    <div class="coverIMGSponsor">
-        <div class="sponsorPic">
+    <h1>Hello {{ user_profile.user.first_name }},</h1>
 
-        </div>
-        <div class="pageTitleSponsor">
-            <h1 class="sponsorTitle">PROFILE</h1>
-            <h2 class="sponsorTitleCont">you dirty gamblers!<span class="auto-typed"></span></h2>
-        </div>
-    </div>
+    {% if user_profile.savedcard_set.first %}
+        <h2>Current Saved Card:</h2>
+        <p>Card ending in {{ user_profile.savedcard_set.first.last_four_digits }},</p>
+        <p>Expires on {{ user_profile.savedcard_set.first.expiration_date|date:"F Y" }}</p>
+        
+        <p>Update your card information:</p>
+        <form method="post" action="{% url 'profile' %}">
+            {% csrf_token %}
+            
+            <label for="card_number">Card Number:</label>
+            <!-- TODO add max length for all inputs -->
+            <input type="text" id="card_number" name="card_number" value="{{ user_profile.savedcard_set.first.card_number }}" required>
+            <br>
+            
+            <label for="cardholder_name">Cardholder Name:</label>
+            <input type="text" id="cardholder_name" name="cardholder_name" value="{{ user_profile.savedcard_set.first.cardholder_name }}" required>
+            <br>
+        
+            <label for="expiration_date">Expiration Date:</label>
+            <input type="month" id="expiration_date" name="expiration_date" value="{{ user_profile.savedcard_set.first.expiration_date|date:'m/y' }}" required>
+            <br>
+        
+            <!-- Add more fields if necessary (e.g., CVV) -->
+        
+            <button type="submit">Update Card</button>
+        </form>
+    {% else %}
+        <p>No saved cards for this user.</p>
+        <p>Please add a card here.</p>
+        <form method="post" action="{% url 'profile' %}">
+            {% csrf_token %}
+            
+            <label for="card_number">Card Number:</label>
+            <!-- TODO add max length for all inputs -->
+            <input type="text" id="card_number" name="card_number" required>
+            <br>
+            
+            <label for="cardholder_name">Cardholder Name:</label>
+            <input type="text" id="cardholder_name" name="cardholder_name" required>
+            <br>
+        
+            <label for="expiration_date">Expiration Date:</label>
+            <input type="month" id="expiration_date" name="expiration_date" required>
+            <br>
+        
+            <!-- Add more fields if necessary (e.g., CVV) -->
+        
+            <button type="submit">Save Card</button>
+        </form>
+    {% endif %}
 </body>
 {% endblock %}

@@ -49,6 +49,6 @@ footer {
     justify-content: center;
     align-items: center;
     font-size: 1.2em;
-    cursor: pointer;
     color: var(--secondary);
+    margin-top: 20px;
 }

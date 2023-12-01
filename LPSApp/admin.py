@@ -3,3 +3,6 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Ticket)
+admin.site.register(UserProfile)
+admin.site.register(SavedCard)
+admin.site.register(Order)

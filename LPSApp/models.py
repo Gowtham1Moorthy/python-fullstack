@@ -1,15 +1,12 @@
 import locale
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
+from django.utils import timezone
 
 # Create your models here.
 class Ticket(models.Model):
-    name_validator = RegexValidator(
-        regex='^[a-zA-Z0-9 ]+$',
-        message='Name must only contain letters, numbers, and spaces.',
-    )
-
-    name = models.CharField(max_length=200, validators=[name_validator])
+    name = models.CharField(max_length=200)
     winning_amount = models.DecimalField(
         max_digits=12, decimal_places=2,
         validators=[MinValueValidator(0.00), MaxValueValidator(9999999999.99)]
@@ -18,6 +15,15 @@ class Ticket(models.Model):
         max_digits=4, decimal_places=2,
         validators=[MinValueValidator(0.00), MaxValueValidator(10.00)]
     )
+    next_draw_date = models.DateField(default=timezone.now, null=True)
+    previous_draw_date = models.DateField(default=timezone.now, null=True)
+    previuous_draw_number_1 = models.IntegerField(default=None, null=True)
+    previuous_draw_number_2 = models.IntegerField(default=None, null=True)
+    previuous_draw_number_3 = models.IntegerField(default=None, null=True)
+    previuous_draw_number_4 = models.IntegerField(default=None, null=True)
+    previuous_draw_number_5 = models.IntegerField(default=None, null=True)
+    previuous_draw_number_6 = models.IntegerField(default=None, null=True)
+    powerball = models.BooleanField(default=False, null=True)
 
     def formatted_winning_amount(self):
         # Set the locale to use commas for thousands separator
@@ -30,3 +36,31 @@ class Ticket(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # Add additional fields related to the user
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
+    
+class SavedCard(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    card_number = models.CharField(max_length=16)
+    cardholder_name = models.CharField(max_length=255)
+    expiration_date = models.DateField()
+    # Add other fields related to the card information
+
+    def last_four_digits(self):
+        return self.card_number[-4:]
+
+    def __str__(self):
+        return f"Card ending in {self.last_four_digits()} for {self.user_profile.user.username}"
+    
+class Order(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order_date = models.DateTimeField(auto_now_add=True)
+    # TODO Add more order info
+
+    def __str__(self):
+        return f"Order {self.id} by {self.user_profile.user.username} on {self.order_date}"

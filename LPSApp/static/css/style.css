@@ -15,6 +15,7 @@
     --shadow: var(--primary-dark) 0px 5px 0px;
     --background: rgb(228, 204, 172);
     --body-font: black;
+    --underline: var(--primary-dark);
 }
 
 :root.scratchman{
@@ -28,6 +29,7 @@
     --shadow: var(--primary-dark) 0px 5px 0px;
     --background: rgb(228, 204, 172);
     --body-font: black;
+    --underline: var(--primary-dark);
 }
 
 :root.dark-mode{
@@ -37,10 +39,11 @@
     --primary-bright: rgb(80, 80, 80);
     --secondary: rgb(251, 200, 1);
     --font: 'chunk', sans-serif;
-    --font-shadow: 3px 3px 0px var(--dark-primary-dark);
-    --shadow: var(--dark-primary-dark) 0px 5px 0px;
+    --font-shadow: 3px 3px 0px var(--primary-dark);
+    --shadow: var(--primary-dark) 0px 5px 0px;
     --background: rgb(30, 30, 30);
-    --body-font: white;
+    --body-font: rgb(251, 200, 1);  
+    --underline: rgb(80, 80, 80);
 }
 
 body::-webkit-scrollbar {
@@ -58,11 +61,17 @@ html{
 
 body{
     margin: 0;
+    width: 100vw;
 }
 
 main{
     margin-top: 90px;
-    margin-bottom: 20px;
+    min-height: 77.6vh;
+}
+
+hr{
+    width: 90%;
+    color: var(--secondary);
 }
 
 .logo-image img{
@@ -111,9 +120,10 @@ main{
 
 .dropdown-content{
     display: none;
-    justify-content: space-around;
+    justify-content: end;
     align-items: center;
     height: 73.5px;
+    gap: 10px;
 }
 
 .dropdown-content a{
@@ -158,6 +168,10 @@ main{
     fill: var(--secondary);
 }
 
+#logoutForm{
+    display: none;
+}
+
 @media (max-width: 1199px) {
     .dropdown-content.show{
         display: flex;
@@ -169,13 +183,15 @@ main{
         z-index: 9;
         background-color: var(--primary-faded);
         flex-direction: column;
+        justify-content: center;
+        gap: 20px;
     }
 
     .dropdown-content.show button{
         width: max(70vw,300px);
         height: 16vh;
         font-size: 40px;
-        border-radius: 20px;
+        border-radius: 10px;
         box-shadow: 5px 12px 0px var(--primary-dark);
         margin: min(20px,0vh);
         transition: box-shadow .1s linear, transform .1s linear;
@@ -220,14 +236,14 @@ main{
 /*--------------SideMenu CSS--------------------*/
 .sideMenu {
     display: flex;
-    flex-direction: column; /* To stack the mode and up-icon vertically */
+    flex-direction: column-reverse; /* To stack the mode and up-icon vertically */
     align-items: flex-end; /* To align them to the right side */
     position: fixed;
     bottom: 5px;
     right: 8px;
     padding: 5px;
     border-radius: 5px;
-    z-index: 999;
+    z-index: 9;
     cursor: pointer;
 }
 
@@ -255,6 +271,10 @@ main{
     line-height: 1;
     margin-bottom: 5px; /* Add margin to separate mode and up-icon */
     cursor: pointer;
+}
+
+.up{
+    display: none;
 }
 
 .icon {
