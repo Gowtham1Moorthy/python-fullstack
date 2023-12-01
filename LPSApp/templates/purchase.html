@@ -6,24 +6,32 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/partials/footer.css" media="all">
 </head>
 <body>
-    <a href="/browse">Back to Browse</a>
+    <a href="/browse" class="backButton">Back to Browse</a>
     <h2>Purchase Ticket</h2>
     
     <div>
         <h3>Ticket Information</h3>
-        <p>Name: {{ ticket.name }}</p>
-        <p>Cost: ${{ ticket.cost }}</p>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td></td>
+                <td>{{ ticket.name }}</td>
+            </tr>
+            <tr>
+                <td>Cost:</td>
+                <td></td>
+                <td>${{ ticket.cost }}</td>
+            </tr>
+        </table>
     </div>
     
     <div>
-        <h3>User Profile Information</h3>
+        <h3>Payment Information</h3>
         {% if user_profile.savedcard_set.first %}
             <p>Card Number: {{ user_profile.savedcard_set.first.card_number }}</p>
             <p>Cardholder Name: {{ user_profile.savedcard_set.first.cardholder_name }}</p>
             <p>Expiration Date: {{ user_profile.savedcard_set.first.expiration_date }}</p>
         {% else %}
-            <p>No saved cards for this user.</p>
-            <p>Please add a card here.</p>
             <form method="post" action="{% url 'purchase' ticket.name %}">
                 {% csrf_token %}
                 
@@ -52,9 +60,23 @@
         
         <div>
             <h3>Payment Details</h3>
-            <p>Subtotal: ${{ ticket.cost }}</p>
-            <p>Tax: ${{ tax }}</p>
-            <p class="total">Total: ${{ ticketCost }}</p>
+            <table>
+                <tr>
+                    <td>Subtotal:</td>
+                    <td></td>
+                    <td>${{ ticket.cost }}</td>
+                </tr>
+                <tr>
+                    <td>Tax:</td>
+                    <td></td>
+                    <td>${{ tax }}</td>
+                </tr>
+                <tr>
+                    <td>Total:</td>
+                    <td></td>
+                    <td>${{ ticketCost }}</td>
+                </tr>
+            </table>
         </div>
         
         {% if user_profile.savedcard_set.first %}

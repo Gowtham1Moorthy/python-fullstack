@@ -2,8 +2,11 @@ h2 {
     color: #333;
 }
 
-main{
+main {
     padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    margin-top: 90px;
 }
 
 main div {
@@ -12,14 +15,77 @@ main div {
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
 }
+
 h3 {
     color: #555;
 }
-p {
+
+main.p {
     color: #777;
 }
+
 .total {
     font-weight: bold;
     color: #333;
+}
+
+/* Customize input styles */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333; /* Label color */
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Additional styling for the 'Add Card' link */
+form p {
+    margin-top: 15px;
+    color: #007BFF; /* Link color */
+}
+
+form a {
+    text-decoration: none;
+    color: #007BFF; /* Link color */
+    margin-left: 5px;
+}
+
+/* Additional styling for the 'Back to Browse' link */
+main.a {
+    text-decoration: none;
+    color: #007BFF; /* Link color */
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.backButton{
+    background-color: var(--primary);
+    border: none;
+    color: var(--secondary);
+    padding: 10px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
 }
