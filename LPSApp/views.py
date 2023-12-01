@@ -5,6 +5,8 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+from .forms import CardForm
 
 # Create your views here.
 TEMPLATE_DIRS = (
@@ -21,20 +23,6 @@ def index(request):
         }
         return render(request, 'index.html', main_data)
 
-def showLotto(request, name=None):
-    is_logged_in = request.user != AnonymousUser()
-    if name:
-        name_deslug = deslugify(name)
-        try:
-            ticket_item = Ticket.objects.get(name=name_deslug)
-        except Ticket.DoesNotExist:
-            print(Ticket.DoesNotExist)
-            ticket_item = None
-    else:
-        ticket_item = None
-
-    return render(request, 'ticket_item.html', {"ticket_item": ticket_item, "loggedIn": is_logged_in,})
-
 def browse(request):
     if request.method == 'GET':
         ticket_data = Ticket.objects.all().order_by('name')
@@ -44,8 +32,10 @@ def browse(request):
             "loggedIn": is_logged_in,
         }
         return render(request, 'browse.html', main_data)
+    # TODO Add a post request to handle buying stuff (redirect to puchase screen)
 
 def loginUser(request):
+    # TODO on all errors make sure it jumps to that error on the page
     if request.method == 'GET':
         return render(request, 'login.html')
     else:
@@ -58,10 +48,12 @@ def loginUser(request):
                 email = request.POST.get('email')
                 confirmPassword = request.POST.get('confirmpassword')
                 if password == confirmPassword:
+                    # TODO implement dob checker
                     user = User.objects.create_user(email, email, password)
                     user.first_name = firstName
                     user.last_name = lastName
                     user.save()
+                    UserProfile.objects.create(user=user)
                     print('created')
                     login(request, user)
                     return redirect('/home/')
@@ -69,11 +61,11 @@ def loginUser(request):
                     print('Passwords dont match')
                     return render(request, 'login.html',{'passwordError':True})
             except Exception as e:
-                print("Error creating")
+                print("Error creating:", e)
                 return render(request, 'login.html',{'emailError':True})
         if username:
             user = authenticate(request, username=username, password=password)
-            print(user)
+            print(f"Username: {user}")
             if user is not None:
                 login(request, user)
                 print('logged in')
@@ -98,15 +90,52 @@ def privacy(request):
 
 @login_required(login_url='/login/')
 def profile(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        form = CardForm(request.POST)
+        if form.is_valid():
+            card_data = form.cleaned_data
+            # Check if the user already has a saved card
+            existing_card = user_profile.savedcard_set.first()
+            if existing_card:
+                # If a card exists, update its details
+                existing_card.card_number = card_data['card_number']
+                existing_card.cardholder_name = card_data['cardholder_name']
+                existing_card.expiration_date = card_data['expiration_date']
+                # Add other fields related to the card information
+                existing_card.save()
+                messages.success(request, 'Card updated successfully!') # TODO Change this to not be a message
+            else:
+                # If no card exists, create a new one
+                SavedCard.objects.create(
+                    user_profile=user_profile,
+                    card_number=card_data['card_number'],
+                    cardholder_name=card_data['cardholder_name'],
+                    expiration_date=card_data['expiration_date']
+                    # Add other fields related to the card information
+                )
+                messages.success(request, 'Card saved successfully!') # TODO Change this to not be a message
+            return redirect('profile') # ? is this needed
+        else:
+            messages.error(request, 'Error saving/updating card. Please check the form.') # TODO Change this to not be a message
+
+    # Handle GET request
     main_data = {
-        "loggedIn":True,
+        "loggedIn": True,
+        'user_profile': user_profile,
+        'form': CardForm() if not user_profile.savedcard_set.exists() else None
     }
     return render(request, 'profile.html', main_data)
 
 @login_required(login_url='/login/')
 def purchaseHistory(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    orders = Order.objects.filter(user_profile=user_profile)
     main_data = {
         "loggedIn":True,
+        "user_profile": user_profile,
+        "orders": orders,
     }
     return render(request, 'purchaseHistory.html', main_data)
 

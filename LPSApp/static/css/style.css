@@ -61,11 +61,17 @@ html{
 
 body{
     margin: 0;
+    width: 100vw;
 }
 
 main{
     margin-top: 90px;
     min-height: 77.6vh;
+}
+
+hr{
+    width: 90%;
+    color: var(--secondary);
 }
 
 .logo-image img{

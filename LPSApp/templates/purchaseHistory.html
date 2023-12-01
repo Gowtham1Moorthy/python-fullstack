@@ -5,14 +5,20 @@
 
 </head>
 <body>
-    <div class="coverIMGSponsor">
-        <div class="sponsorPic">
+    <h1>Purchase History for {{ user_profile.user.first_name }}</h1>
 
-        </div>
-        <div class="pageTitleSponsor">
-            <h1 class="sponsorTitle">PURCHASE HISTORY</h1>
-            <h2 class="sponsorTitleCont">you dirty gamblers!<span class="auto-typed"></span></h2>
-        </div>
-    </div>
+    {% if orders %}
+        <ul>
+            {% for order in orders %}
+                <li>
+                    Order ID: {{ order.id }}<br>
+                    Order Date: {{ order.order_date }}<br>
+                    <!-- Add other order details as needed -->
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No purchase history for this user.</p>
+    {% endif %}
 </body>
 {% endblock %}

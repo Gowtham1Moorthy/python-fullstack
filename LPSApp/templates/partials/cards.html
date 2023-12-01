@@ -1,0 +1,28 @@
+<div class="lottoCards">
+    {% for ticket in tickets %}
+        <div class="lottoCard">
+            <h2>{{ ticket.name }}</h2>
+            <button onclick="showLotto(this)" class="show"></button>
+            <div class="hidden">
+                <p>Est. Annuitized Jackpot</p>
+                <h3>${{ ticket.formatted_winning_amount }}</h3>
+                <p>Price: ${{ ticket.cost }}</p>
+                <p>Next Draw: {{ ticket.next_draw_date }}</p>
+                <hr>
+                <p>Results for: {{ ticket.previous_draw_date }}</p>
+                <div class="numbers">
+                    <p>{{ ticket.previuous_draw_number_1 }}</p>
+                    <p>{{ ticket.previuous_draw_number_2 }}</p>
+                    <p>{{ ticket.previuous_draw_number_3 }}</p>
+                    <p>{{ ticket.previuous_draw_number_4 }}</p>
+                    <p>{{ ticket.previuous_draw_number_5 }}</p>
+                    {% if ticket.powerball %}
+                        <p class="powerball">{{ ticket.previuous_draw_number_6 }}</p>
+                    {% else %}
+                        <p>{{ ticket.previuous_draw_number_6 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
