@@ -129,6 +129,54 @@ def profile(request):
     return render(request, 'profile.html', main_data)
 
 @login_required(login_url='/login/')
+def purchase(request, ticket):
+    user_profile = UserProfile.objects.get(user=request.user)
+    print(user_profile.savedcard_set.first)
+    if request.method == 'GET':
+        print(ticket)
+        ticketInfo = Ticket.objects.get(name=ticket)
+        tax = round(float(ticketInfo.cost) * .0825, 2)
+        ticketCost = float(ticketInfo.cost) + tax
+        form = CardForm() if not user_profile.savedcard_set.exists() else None
+        print(form)
+        main_data = {
+            "loggedIn": True,
+            'ticket': ticketInfo,
+            'form': form,
+            'tax': tax,
+            'ticketCost': ticketCost,
+        }
+        return render(request, 'purchase.html', main_data)
+    else:
+        form = CardForm(request.POST)
+        if form.is_valid():
+            card_data = form.cleaned_data
+            # Check if the user already has a saved card
+            existing_card = user_profile.savedcard_set.first()
+            if existing_card:
+                # If a card exists, update its details
+                existing_card.card_number = card_data['card_number']
+                existing_card.cardholder_name = card_data['cardholder_name']
+                existing_card.expiration_date = card_data['expiration_date']
+                # Add other fields related to the card information
+                existing_card.save()
+                print('Card updated successfully!') # TODO Change this to not be a message
+            else:
+                # If no card exists, create a new one
+                SavedCard.objects.create(
+                    user_profile=user_profile,
+                    card_number=card_data['card_number'],
+                    cardholder_name=card_data['cardholder_name'],
+                    expiration_date=card_data['expiration_date']
+                    # Add other fields related to the card information
+                )
+                print('Card saved successfully!') # TODO Change this to not be a message
+            return redirect(f'../../purchase/{ticket}')
+        else:
+            print('Error saving/updating card. Please check the form.') # TODO Change this to not be a message
+
+
+@login_required(login_url='/login/')
 def purchaseHistory(request):
     user_profile = UserProfile.objects.get(user=request.user)
     orders = Order.objects.filter(user_profile=user_profile)
