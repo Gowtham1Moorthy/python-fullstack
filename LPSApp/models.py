@@ -60,6 +60,8 @@ class SavedCard(models.Model):
 class Order(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now_add=True)
+    ticket = models.CharField(max_length=50, default=None, null=True)
+    ticketCost = models.CharField(max_length=10, default=None, null=True)
     # TODO Add more order info
 
     def __str__(self):

@@ -1,0 +1,21 @@
+ul{
+    max-width: 800px;
+    padding: 0;
+    margin: 0 auto;
+}
+
+li{
+    background-color: var(--primary);
+    border: none;
+    color: var(--secondary);
+    padding: 10px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 10px;
+    transition: all .2s ease;
+    border-radius: 5px;
+}

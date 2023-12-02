@@ -2,23 +2,25 @@
 {% block title %}HOME - {% endblock %}
 {% block content %}
 <head>
-
+    <link rel="stylesheet" type="text/css" href="../static/css/history.css" media="all">
 </head>
 <body>
-    <h1>Purchase History for {{ user_profile.user.first_name }}</h1>
-
     {% if orders %}
         <ul>
             {% for order in orders %}
                 <li>
                     Order ID: {{ order.id }}<br>
+                    Ticket: {{ order.ticket }}<br>
+                    Cost: ${{ order.ticketCost }}<br>
                     Order Date: {{ order.order_date }}<br>
                     <!-- Add other order details as needed -->
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>No purchase history for this user.</p>
+        <ul>
+            <li>No purchase history for this user.</li>
+        </ul>
     {% endif %}
 </body>
 {% endblock %}

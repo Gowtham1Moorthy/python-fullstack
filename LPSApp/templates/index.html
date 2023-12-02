@@ -5,6 +5,12 @@
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" media="all">
 </head>
 <body>
+    {% if purchased %}
+        <div class="purchased show">
+            <p>Ticket purchased!</p>
+            <button class="x" onclick="hidePurchased()">&#x2715;</button>
+        </div>
+    {% endif %}
     <div class="cards">
         <a href="/browse">
             <div class="card">
@@ -29,4 +35,10 @@
     {% include "partials/search.html" %}
     {% include "partials/cards.html" %}
 </body>
+<script>
+    function hidePurchased(){
+        const cardForm = document.querySelector('.purchased');
+        cardForm.classList.remove('show');
+    }
+</script>
 {% endblock %}
