@@ -179,6 +179,8 @@ def purchase(request, ticket):
                 print('Error saving/updating card.')
                 cardError = True
         else:
+            # Check with bank
+            # if returns true:
             Order.objects.create(
                 user_profile=user_profile,
                 ticket=ticket,
@@ -187,6 +189,8 @@ def purchase(request, ticket):
             #TODO Send email reciept
             print('Purchased')
             return redirect('/home/?purchased=True')
+            # else
+            # redirect(f'/purchase/{ticket}')
     main_data = {
         "loggedIn": True,
         'ticket': ticketInfo,
