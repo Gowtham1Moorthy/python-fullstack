@@ -15,8 +15,8 @@ class Ticket(models.Model):
         max_digits=4, decimal_places=2,
         validators=[MinValueValidator(0.00), MaxValueValidator(10.00)]
     )
-    next_draw_date = models.DateField(default=timezone.now, null=True)
-    previous_draw_date = models.DateField(default=timezone.now, null=True)
+    next_draw_date = models.DateTimeField(default=timezone.now, null=True)
+    previous_draw_date = models.DateTimeField(default=timezone.now, null=True)
     previuous_draw_number_1 = models.IntegerField(default=None, null=True)
     previuous_draw_number_2 = models.IntegerField(default=None, null=True)
     previuous_draw_number_3 = models.IntegerField(default=None, null=True)

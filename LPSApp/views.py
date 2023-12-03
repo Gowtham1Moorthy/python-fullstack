@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CardForm
+import datetime
 
 # Create your views here.
 TEMPLATE_DIRS = (
@@ -145,6 +146,7 @@ def purchase(request, ticket):
 
     cardUpdated = False
     cardError = False
+    cardExpError = False
 
     if request.method == 'POST':
         cardNum = request.POST.get('card_number')
@@ -181,18 +183,19 @@ def purchase(request, ticket):
         else:
             # Check with bank
             # if returns true:
-            # TODO generate numbers
-            Order.objects.create(
-                user_profile=user_profile,
-                ticket=ticket,
-                ticketCost=ticketCost
-                # TODO add numbers to the order
-            )
-            #TODO Send email reciept
-            print('Purchased')
-            return redirect('/home/?purchased=True')
-            # else
-            # return redirect(f'/purchase/{ticket}')
+            if cardInfo.expiration_date > datetime.date.today():
+                # TODO generate numbers
+                Order.objects.create(
+                    user_profile=user_profile,
+                    ticket=ticket,
+                    ticketCost=ticketCost
+                    # TODO add numbers to the order
+                )
+                #TODO Send email reciept
+                print('Purchased')
+                return redirect('/home/?purchased=True')
+            else:
+                cardExpError = True
     main_data = {
         "loggedIn": True,
         'ticket': ticketInfo,
@@ -202,6 +205,7 @@ def purchase(request, ticket):
         'ticketLimit': ticketLimit,
         'cardUpdated': cardUpdated,
         'cardError': cardError,
+        'cardExpError': cardExpError,
     }
     return render(request, 'purchase.html', main_data)
 
@@ -214,40 +218,41 @@ def purchaseHistory(request, id=None):
         for order in orders:
             matchedNums = 0
             ticket = Ticket.objects.get(name=order.ticket)
-            ticketNumbers = [
-                ticket.previuous_draw_number_1,
-                ticket.previuous_draw_number_2,
-                ticket.previuous_draw_number_3,
-                ticket.previuous_draw_number_4,
-                ticket.previuous_draw_number_5,
-            ]
+            if order.order_date < ticket.previous_draw_date: # ? not sure if this works I still need to test it
+                ticketNumbers = [
+                    ticket.previuous_draw_number_1,
+                    ticket.previuous_draw_number_2,
+                    ticket.previuous_draw_number_3,
+                    ticket.previuous_draw_number_4,
+                    ticket.previuous_draw_number_5,
+                ]
 
-            for i in range(1, 6):
-                if getattr(order, f'number_{i}') in ticketNumbers:
-                    matchedNums += 1
-            
-            if matchedNums <= 1:
-                winner = False
-            elif matchedNums == 2:
-                winner= True
-                percent = .01
-            elif matchedNums == 3:
-                winner= True
-                percent = .05
-            elif matchedNums == 4:
-                winner= True
-                percent = .2
-            elif matchedNums == 5:
-                winner= True
-                percent = 1
-            
-            winnings = 0
-            if winner:
-                winnings = float(ticket.winning_amount) * percent
+                for i in range(1, 6):
+                    if getattr(order, f'number_{i}') in ticketNumbers:
+                        matchedNums += 1
+                
+                if matchedNums <= 1:
+                    winner = False
+                elif matchedNums == 2:
+                    winner= True
+                    percent = .01
+                elif matchedNums == 3:
+                    winner= True
+                    percent = .05
+                elif matchedNums == 4:
+                    winner= True
+                    percent = .2
+                elif matchedNums == 5:
+                    winner= True
+                    percent = 1
+                
+                winnings = 0
+                if winner:
+                    winnings = float(ticket.winning_amount) * percent
 
-            order.winner = winner
-            order.winning_amount = round(winnings, 2)
-            order.save()
+                order.winner = winner
+                order.winning_amount = round(winnings, 2)
+                order.save()
     else:
         order = Order.objects.get(id=id)
         order.claimed = True

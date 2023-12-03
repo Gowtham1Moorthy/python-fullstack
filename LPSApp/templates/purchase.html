@@ -111,9 +111,12 @@
             <p class="purchaseLimit">Ticket cannot be purchased. Ticket purchase limit hit.</p>
             <a href="/responsible" class="backButton">Gamble Responsibly</a>
         {% else %}
-            {% if cardInfo %}
+            {% if cardInfo and not cardExpError%}
                 <button type="submit" class="purchaseButton">Purchase</button>
             {% else %}
+                {% if cardExpError %}
+                    <p class="purchaseLimit">Card is expired.</p>
+                {% endif %}
                 <p class="purchaseLimit">Please add a card to proceed with the purchase.</p>
             {% endif %}
         {% endif %}
