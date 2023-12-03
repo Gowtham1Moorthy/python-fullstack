@@ -192,7 +192,7 @@ def purchase(request, ticket):
             print('Purchased')
             return redirect('/home/?purchased=True')
             # else
-            # redirect(f'/purchase/{ticket}')
+            # return redirect(f'/purchase/{ticket}')
     main_data = {
         "loggedIn": True,
         'ticket': ticketInfo,

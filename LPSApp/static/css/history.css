@@ -22,9 +22,7 @@ li::marker{
 }
 
 li>div{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    display: block;
 }
 
 li.show>div{
@@ -43,7 +41,7 @@ li.show>div{
     padding: 20px;
     background-color: var(--primary-dark);
     border: var(--secondary) 4px solid;
-    margin: 10px;
+    margin: 5px;
     text-shadow: none;
     color: var(--secondary);
     aspect-ratio: 1;
