@@ -27,24 +27,24 @@
     <div>
         <h3>Payment Information</h3>
         {% if cardInfo %}
-            <p>Card Number: {{ cardInfo.card_number }}</p>
+            <p>Card Number: {{ cardInfo.formatted_card_number }}</p>
             <p>Cardholder Name: {{ cardInfo.cardholder_name }}</p>
-            <p>Expiration Date: {{ cardInfo.expiration_date }}</p>
+            <p>Expiration Date: {{ cardInfo.formatted_expiration_date }}</p>
             <button onclick="changeCard()" class="backButton">Change payment information</button>
             <form method="post" action="{% url 'purchase' ticket.name %}" class="cardInfoForm">
                 {% csrf_token %}
                 
                 <label for="card_number">Card Number:</label>
                 <!-- TODO add max length for all inputs -->
-                <input type="text" id="card_number" name="card_number" required>
+                <input type="text" id="card_number" name="card_number" placeholder="1234567891234567" required>
                 <br>
                 
                 <label for="cardholder_name">Cardholder Name:</label>
-                <input type="text" id="cardholder_name" name="cardholder_name" required>
+                <input type="text" id="cardholder_name" name="cardholder_name" placeholder="Scratchman" required>
                 <br>
             
                 <label for="expiration_date">Expiration Date:</label>
-                <input type="month" id="expiration_date" name="expiration_date" required>
+                <input type="month" id="expiration_date" name="expiration_date" placeholder="MM/YY" required>
                 <br>
             
                 <button type="submit" class="saveCard">Save Card</button>

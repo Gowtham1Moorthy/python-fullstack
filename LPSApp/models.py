@@ -47,7 +47,16 @@ class SavedCard(models.Model):
     card_number = models.CharField(max_length=16)
     cardholder_name = models.CharField(max_length=255)
     expiration_date = models.DateField()
-    # Add other fields related to the card information
+
+    def formatted_expiration_date(self):
+        # Format the expiration date to display as MM/YYYY
+        formatted_date = self.expiration_date.strftime('%m/%Y')
+        return formatted_date
+
+    def formatted_card_number(self):
+        # Add spaces every 4 characters
+        formatted_number = ' '.join([self.card_number[i:i+4] for i in range(0, len(self.card_number), 4)])
+        return formatted_number
 
     def last_four_digits(self):
         return self.card_number[-4:]
