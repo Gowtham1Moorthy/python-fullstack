@@ -22,8 +22,6 @@ class Ticket(models.Model):
     previuous_draw_number_3 = models.IntegerField(default=None, null=True)
     previuous_draw_number_4 = models.IntegerField(default=None, null=True)
     previuous_draw_number_5 = models.IntegerField(default=None, null=True)
-    previuous_draw_number_6 = models.IntegerField(default=None, null=True)
-    powerball = models.BooleanField(default=False, null=True)
 
     def formatted_winning_amount(self):
         # Set the locale to use commas for thousands separator
@@ -62,7 +60,28 @@ class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
     ticket = models.CharField(max_length=50, default=None, null=True)
     ticketCost = models.CharField(max_length=10, default=None, null=True)
+    number_1 = models.IntegerField(default=None, null=True)
+    number_2 = models.IntegerField(default=None, null=True)
+    number_3 = models.IntegerField(default=None, null=True)
+    number_4 = models.IntegerField(default=None, null=True)
+    number_5 = models.IntegerField(default=None, null=True)
+    winner = models.BooleanField(default=False,null=True)
+    winning_amount = models.DecimalField(
+        max_digits=12, decimal_places=2,
+        validators=[MinValueValidator(0.00), MaxValueValidator(9999999999.99)],
+        null=True, default=0
+    )
+    claimed = models.BooleanField(default=False,null=True)
     # TODO Add more order info
 
     def __str__(self):
         return f"Order {self.id} by {self.user_profile.user.username} on {self.order_date}"
+    
+    def formatted_winning_amount(self):
+        # Set the locale to use commas for thousands separator
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+
+        # Format the winning_amount using commas
+        formatted_amount = locale.format_string("%.2f", self.winning_amount, grouping=True)
+
+        return formatted_amount

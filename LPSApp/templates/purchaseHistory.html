@@ -9,11 +9,36 @@
         <ul>
             {% for order in orders %}
                 <li>
-                    Order ID: {{ order.id }}<br>
-                    Ticket: {{ order.ticket }}<br>
-                    Cost: ${{ order.ticketCost }}<br>
-                    Order Date: {{ order.order_date }}<br>
-                    <!-- Add other order details as needed -->
+                    <div>
+                        Order ID: {{ order.id }}<br>
+                        Ticket: {{ order.ticket }}<br>
+                        Cost: ${{ order.ticketCost }}<br>
+                        Order Date: {{ order.order_date }}<br>
+                        <div class="numbers">
+                            <p>{{ order.number_1 }}</p>
+                            <p>{{ order.number_2 }}</p>
+                            <p>{{ order.number_3 }}</p>
+                            <p>{{ order.number_4 }}</p>
+                            <p>{{ order.number_5 }}</p>
+                        </div>
+                    </div>
+                    {% if order.winner and not order.claimed %}
+                        <button class="winner" onclick="showWinnings(this)">!</button>
+                        <div class="winnings">
+                            <p>You won ${{ order.winning_amount }}!</p>
+                            {% if order.winning_amount <= 599 %}
+                            <form method="post" action="{% url 'purchaseHistory' id=order.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="claimButton">Claim winnings</button>
+                            </form>
+                            {% else %}
+                                <p>Please take your ticket to your local lottery claiming center to pick up your prize.</p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if order.claimed %}
+                        <p>You claimed ${{ order.winning_amount }}.</p>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
@@ -23,4 +48,13 @@
         </ul>
     {% endif %}
 </body>
+<script>
+    function showWinnings(button) {
+        const order = button.parentElement.parentElement;
+        const winnings = button.nextElementSibling;
+        button.style.display = 'none';
+        order.classList.toggle('show');
+        winnings.classList.toggle('show');
+    }
+</script>
 {% endblock %}

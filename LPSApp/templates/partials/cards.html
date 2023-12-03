@@ -16,11 +16,6 @@
                     <p>{{ ticket.previuous_draw_number_3 }}</p>
                     <p>{{ ticket.previuous_draw_number_4 }}</p>
                     <p>{{ ticket.previuous_draw_number_5 }}</p>
-                    {% if ticket.powerball %}
-                        <p class="powerball">{{ ticket.previuous_draw_number_6 }}</p>
-                    {% else %}
-                        <p>{{ ticket.previuous_draw_number_6 }}</p>
-                    {% endif %}
                 </div>
                 <a href="/purchase/{{ticket.name}}" class="purchaseButton">Purchase Ticket</a>
             </div>

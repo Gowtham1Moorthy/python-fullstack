@@ -109,12 +109,12 @@
 
         {% if ticketLimit %}
             <p class="purchaseLimit">Ticket cannot be purchased. Ticket purchase limit hit.</p>
-            <a href="/browse" class="backButton">Back to Browse</a>
+            <a href="/responsible" class="backButton">Gamble Responsibly</a>
         {% else %}
             {% if cardInfo %}
                 <button type="submit" class="purchaseButton">Purchase</button>
             {% else %}
-                <p>Please add a card to proceed with the purchase.</p>
+                <p class="purchaseLimit">Please add a card to proceed with the purchase.</p>
             {% endif %}
         {% endif %}
     </form>

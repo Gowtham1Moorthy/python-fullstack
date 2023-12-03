@@ -12,10 +12,98 @@ li{
     box-shadow: 4px 3px 0px var(--primary-dark);
     text-shadow: var(--font-shadow);
     border: 2px var(--primary-bright) solid;
+    margin: 10px;
+    transition: all .2s ease;
+    border-radius: 5px;
+}
+
+li::marker{
+    font-size: 0px;
+}
+
+li>div{
     display: flex;
-    justify-content: left;
+    justify-content: space-around;
+    align-items: center;
+}
+
+li.show>div{
+    display: block;
+}
+
+.numbers{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.numbers p{
+    border-radius: 50%;
+    padding: 20px;
+    background-color: var(--primary-dark);
+    border: var(--secondary) 4px solid;
+    margin: 10px;
+    text-shadow: none;
+    color: var(--secondary);
+    aspect-ratio: 1;
+    width: 20px;
+    text-align: center;
+}
+
+.winner{
+    font-size: 36px;
+    border-radius: 5px;
+    background-color: var(--primary-bright);
+    border: var(--secondary) 4px solid;
+    text-shadow: none;
+    color: var(--secondary);
+    cursor: pointer;
+    width: 100%;
+    margin: 10px auto;
+}
+
+.winnings{
+    display: none;
+    color: var(--secondary);
+    text-align: center;
+}
+
+.winnings.show{
+    display: block;
+}
+
+.claimButton{
+    background-color: var(--primary);
+    border: none;
+    color: var(--secondary);
+    padding: 10px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
+    display: flex;
+    justify-content: center;
     align-items: center;
     margin: 10px;
     transition: all .2s ease;
     border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+  width: 100%;
+}
+
+.claimButton:hover{
+    background-color: var(--primary-faded);
+    box-shadow: 3px 2px 0px var(--primary-dark);
+    transform: translateY(3px);
+}
+
+.claimButton:active{
+    background-color: var(--primary-faded);
+    box-shadow: 2px 1px 0px var(--primary-dark);
+    transform: translateY(5px);
+}
+
+main p{
+    text-align: center;
 }

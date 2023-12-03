@@ -130,7 +130,10 @@ def profile(request):
 @login_required(login_url='/login/')
 def purchase(request, ticket):
     user_profile = UserProfile.objects.get(user=request.user)
-    cardInfo = SavedCard.objects.get(user_profile=user_profile)
+    try:
+        cardInfo = SavedCard.objects.get(user_profile=user_profile)
+    except Exception as e:
+        cardInfo = None
     ticketInfo = Ticket.objects.get(name=ticket)
     tax = round(float(ticketInfo.cost) * .0825, 2)
     ticketCost = round(float(ticketInfo.cost) + tax,2)
@@ -178,10 +181,12 @@ def purchase(request, ticket):
         else:
             # Check with bank
             # if returns true:
+            # TODO generate numbers
             Order.objects.create(
                 user_profile=user_profile,
                 ticket=ticket,
                 ticketCost=ticketCost
+                # TODO add numbers to the order
             )
             #TODO Send email reciept
             print('Purchased')
@@ -202,9 +207,54 @@ def purchase(request, ticket):
 
 
 @login_required(login_url='/login/')
-def purchaseHistory(request):
+def purchaseHistory(request, id=None):
     user_profile = UserProfile.objects.get(user=request.user)
     orders = Order.objects.filter(user_profile=user_profile).order_by('-order_date')
+    if request.method == 'GET':
+        for order in orders:
+            matchedNums = 0
+            ticket = Ticket.objects.get(name=order.ticket)
+            ticketNumbers = [
+                ticket.previuous_draw_number_1,
+                ticket.previuous_draw_number_2,
+                ticket.previuous_draw_number_3,
+                ticket.previuous_draw_number_4,
+                ticket.previuous_draw_number_5,
+            ]
+
+            for i in range(1, 6):
+                if getattr(order, f'number_{i}') in ticketNumbers:
+                    matchedNums += 1
+            
+            if matchedNums <= 1:
+                winner = False
+            elif matchedNums == 2:
+                winner= True
+                percent = .01
+            elif matchedNums == 3:
+                winner= True
+                percent = .05
+            elif matchedNums == 4:
+                winner= True
+                percent = .2
+            elif matchedNums == 5:
+                winner= True
+                percent = 1
+            
+            winnings = 0
+            if winner:
+                winnings = float(ticket.winning_amount) * percent
+
+            order.winner = winner
+            order.winning_amount = round(winnings, 2)
+            order.save()
+    else:
+        order = Order.objects.get(id=id)
+        order.claimed = True
+        order.save()
+        print('Claimed order')
+        return redirect('/purchase-history/')
+        
     main_data = {
         "loggedIn":True,
         "user_profile": user_profile,
