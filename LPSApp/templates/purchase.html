@@ -35,7 +35,6 @@
                 {% csrf_token %}
                 
                 <label for="card_number">Card Number:</label>
-                <!-- TODO add max length for all inputs -->
                 <input type="text" id="card_number" name="card_number" placeholder="1234567891234567" required>
                 <br>
                 
@@ -60,7 +59,6 @@
                 {% csrf_token %}
                 
                 <label for="card_number">Card Number:</label>
-                <!-- TODO add max length for all inputs -->
                 <input type="text" id="card_number" name="card_number" required>
                 <br>
                 
@@ -71,9 +69,7 @@
                 <label for="expiration_date">Expiration Date:</label>
                 <input type="month" id="expiration_date" name="expiration_date" required>
                 <br>
-            
-                <!-- Add more fields if necessary (e.g., CVV) -->
-            
+
                 <button type="submit" class="saveCard">Save Card</button>
             </form>
             {% if cardError %}

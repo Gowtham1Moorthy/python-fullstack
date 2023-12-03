@@ -92,7 +92,14 @@ def privacy(request):
 @login_required(login_url='/login/')
 def profile(request):
     user_profile = UserProfile.objects.get(user=request.user)
-
+    try:
+        cardInfo = SavedCard.objects.get(user_profile=user_profile)
+    except Exception as e:
+        cardInfo = None
+    cardUpdated = False
+    cardError = False
+    cardSaved = False
+    
     if request.method == 'POST':
         form = CardForm(request.POST)
         if form.is_valid():
@@ -106,7 +113,9 @@ def profile(request):
                 existing_card.expiration_date = card_data['expiration_date']
                 # Add other fields related to the card information
                 existing_card.save()
-                messages.success(request, 'Card updated successfully!') # TODO Change this to not be a message
+                print('Card updated successfully!')
+                cardUpdated = True
+                cardInfo = SavedCard.objects.get(user_profile=user_profile)
             else:
                 # If no card exists, create a new one
                 SavedCard.objects.create(
@@ -116,15 +125,19 @@ def profile(request):
                     expiration_date=card_data['expiration_date']
                     # Add other fields related to the card information
                 )
-                messages.success(request, 'Card saved successfully!') # TODO Change this to not be a message
-            return redirect('profile') # ? is this needed
+                print('Card saved successfully!')
+                cardSaved = True
+                cardInfo = SavedCard.objects.get(user_profile=user_profile)
         else:
-            messages.error(request, 'Error saving/updating card. Please check the form.') # TODO Change this to not be a message
-
+            print('Error saving/updating card.')
+            cardError = True
     main_data = {
         "loggedIn": True,
         'user_profile': user_profile,
-        'form': CardForm() if not user_profile.savedcard_set.exists() else None
+        'cardInfo': cardInfo,
+        'cardUpdated': cardUpdated,
+        'cardSaved': cardSaved,
+        'cardError': cardError,
     }
     return render(request, 'profile.html', main_data)
 
@@ -217,42 +230,45 @@ def purchaseHistory(request, id=None):
     if request.method == 'GET':
         for order in orders:
             matchedNums = 0
-            ticket = Ticket.objects.get(name=order.ticket)
-            if order.order_date < ticket.previous_draw_date: # ? not sure if this works I still need to test it
-                ticketNumbers = [
-                    ticket.previuous_draw_number_1,
-                    ticket.previuous_draw_number_2,
-                    ticket.previuous_draw_number_3,
-                    ticket.previuous_draw_number_4,
-                    ticket.previuous_draw_number_5,
-                ]
+            try:
+                ticket = Ticket.objects.get(name=order.ticket)
+                if order.order_date < ticket.previous_draw_date: # ? not sure if this works I still need to test it
+                    ticketNumbers = [
+                        ticket.previuous_draw_number_1,
+                        ticket.previuous_draw_number_2,
+                        ticket.previuous_draw_number_3,
+                        ticket.previuous_draw_number_4,
+                        ticket.previuous_draw_number_5,
+                    ]
 
-                for i in range(1, 6):
-                    if getattr(order, f'number_{i}') in ticketNumbers:
-                        matchedNums += 1
-                
-                if matchedNums <= 1:
-                    winner = False
-                elif matchedNums == 2:
-                    winner= True
-                    percent = .01
-                elif matchedNums == 3:
-                    winner= True
-                    percent = .05
-                elif matchedNums == 4:
-                    winner= True
-                    percent = .2
-                elif matchedNums == 5:
-                    winner= True
-                    percent = 1
-                
-                winnings = 0
-                if winner:
-                    winnings = float(ticket.winning_amount) * percent
+                    for i in range(1, 6):
+                        if getattr(order, f'number_{i}') in ticketNumbers:
+                            matchedNums += 1
+                    
+                    if matchedNums <= 1:
+                        winner = False
+                    elif matchedNums == 2:
+                        winner= True
+                        percent = .01
+                    elif matchedNums == 3:
+                        winner= True
+                        percent = .05
+                    elif matchedNums == 4:
+                        winner= True
+                        percent = .2
+                    elif matchedNums == 5:
+                        winner= True
+                        percent = 1
+                    
+                    winnings = 0
+                    if winner:
+                        winnings = float(ticket.winning_amount) * percent
 
-                order.winner = winner
-                order.winning_amount = round(winnings, 2)
-                order.save()
+                    order.winner = winner
+                    order.winning_amount = round(winnings, 2)
+                    order.save()
+            except:
+                order.ticket = f'{order.ticket} (Discontinued)'
     else:
         order = Order.objects.get(id=id)
         order.claimed = True
