@@ -110,17 +110,6 @@ function extractTicketNames(inputString) {
     }
 }
 
-function slugify(str) {
-    return String(str)
-      .normalize('NFKD') // split accented characters into their base characters and diacritical marks
-      .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
-      .trim() // trim leading or trailing whitespace
-      .toLowerCase() // convert to lowercase
-      .replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
-      .replace(/\s+/g, '-') // replace spaces with hyphens
-      .replace(/-+/g, '-'); // remove consecutive hyphens
-}
-
 function searchLotto(input, tickets) {
     const ticketNames = extractTicketNames(tickets);
     const search = input.value.toLowerCase();
@@ -134,38 +123,28 @@ function searchLotto(input, tickets) {
 
 function displaySearchResults(results) {
     const resultsContainer = document.querySelector('.lottoCards');
-
-    // Clear previous results
-    resultsContainer.innerHTML = '';
-
-    // Display each result
-    if(results){
-        if(results.length > 0){
-            results.forEach(result => {
-                const slugResult = slugify(result);
-                const resultLink = document.createElement('a');
-                const lottoCard = document.createElement('div');
-                lottoCard.classList.add('lottoCard');
-                const lottoName = document.createElement('h2');
-    
-                resultLink.href = `../home/${slugResult}`;
-                lottoName.textContent = result;
-    
-                lottoCard.appendChild(lottoName);
-                resultLink.appendChild(lottoCard);
-                resultsContainer.appendChild(resultLink);
-            });
+    const cards = document.querySelectorAll('.lottoCard');
+    var i = 0;
+    cards.forEach(card => {
+        const name = card.querySelector('h2');
+        if(!results.includes(name.textContent)){
+            card.style.display = 'none';
+            i++;
         }
         else{
-            const lottoCard = document.createElement('div');
-            lottoCard.classList.add('lottoCard');
-            const lottoName = document.createElement('h2');
-
-            lottoName.textContent = 'No Results';
-
-            lottoCard.appendChild(lottoName);
-            resultsContainer.appendChild(lottoCard);
+            card.style.display = 'flex';
         }
+    });
+    if(i==cards.length){
+        const lottoCard = document.createElement('div');
+        lottoCard.classList.add('lottoCard');
+        lottoCard.classList.add('noResults');
+        const lottoName = document.createElement('h2');
+
+        lottoName.textContent = 'No Results';
+
+        lottoCard.appendChild(lottoName);
+        resultsContainer.appendChild(lottoCard);
     }
 }
 

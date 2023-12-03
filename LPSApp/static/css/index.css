@@ -20,6 +20,11 @@
     transition: all .2s ease;
 }
 
+.lottoCard h2{
+    text-shadow: var(--font-shadow);
+    color: var(--secondary);
+}
+
 .card svg{
     width: min(20%, 65px);
     aspect-ratio: 1;
@@ -196,6 +201,10 @@
 
 .purchased p{
     font-size: 36px;
+}
+
+.noResults{
+    pointer-events: none;
 }
 
 @media (max-width: 1199px) {

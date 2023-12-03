@@ -4,7 +4,6 @@ from .functions.helper import *
 from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from .forms import CardForm
 
@@ -18,7 +17,6 @@ def index(request):
     if request.method == 'GET':
         ticket_data = Ticket.objects.all().order_by('name')
         purchased = request.GET.get('purchased', False)
-        print(purchased)
         main_data = {
             "tickets": ticket_data,
             "loggedIn":True,
@@ -35,7 +33,6 @@ def browse(request):
             "loggedIn": is_logged_in,
         }
         return render(request, 'browse.html', main_data)
-    # TODO Add a post request to handle buying stuff (redirect to puchase screen)
 
 def loginUser(request):
     # TODO on all errors make sure it jumps to that error on the page
@@ -221,6 +218,16 @@ def responsible(request):
         "loggedIn": is_logged_in,
     }
     return render(request, 'responsible.html', main_data)
+
+def showTicket(request, ticket=None):
+    if request.method == 'GET':
+        ticket_data = Ticket.objects.get(name=ticket)
+        is_logged_in = request.user != AnonymousUser()
+        main_data = {
+            "ticket": ticket_data,
+            "loggedIn": is_logged_in,
+        }
+        return render(request, 'showTicket.html', main_data)
 
 def terms(request):
     is_logged_in = request.user != AnonymousUser()
