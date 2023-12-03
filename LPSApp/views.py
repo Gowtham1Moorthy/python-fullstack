@@ -219,16 +219,6 @@ def responsible(request):
     }
     return render(request, 'responsible.html', main_data)
 
-def showTicket(request, ticket=None):
-    if request.method == 'GET':
-        ticket_data = Ticket.objects.get(name=ticket)
-        is_logged_in = request.user != AnonymousUser()
-        main_data = {
-            "ticket": ticket_data,
-            "loggedIn": is_logged_in,
-        }
-        return render(request, 'showTicket.html', main_data)
-
 def terms(request):
     is_logged_in = request.user != AnonymousUser()
     main_data = {
