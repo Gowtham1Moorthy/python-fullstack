@@ -36,7 +36,7 @@ def browse(request):
         return render(request, 'browse.html', main_data)
 
 def loginUser(request):
-    # TODO on all errors make sure it jumps to that error on the page
+    ## TODO on all errors make sure it jumps to that error on the page
     if request.method == 'GET':
         return render(request, 'login.html')
     else:
