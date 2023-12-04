@@ -202,15 +202,16 @@ def purchase(request, ticket):
             # Check with bank
             # if returns true:
             if cardInfo.expiration_date > datetime.date.today():
+                numbers = random.sample(range(1, 69 + 1), 5)
                 Order.objects.create(
                     user_profile=user_profile,
                     ticket=ticket,
                     ticketCost=ticketCost,
-                    number_1 = random.randint(0, 69),
-                    number_2 = random.randint(0, 69),
-                    number_3 = random.randint(0, 69),
-                    number_4 = random.randint(0, 69),
-                    number_5 = random.randint(0, 69),
+                    number_1 = numbers[0],
+                    number_2 = numbers[1],
+                    number_3 = numbers[2],
+                    number_4 = numbers[3],
+                    number_5 = numbers[4],
                 )
                 #TODO Send email reciept
                 print('Purchased')
