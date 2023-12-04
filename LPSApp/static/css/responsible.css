@@ -1,4 +1,31 @@
-body{
+
+#content-container {
+    font-family: Arial, sans-serif;
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto; /* Center the container horizontally */
     color: var(--body-font);
 }
+h1, h2 {
+    text-align: center;
+}
 
+#content-container h1{
+    font-size: 2.5em;
+    margin-bottom: 0;
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 1.6em;
+    font-weight: 550;
+    margin-bottom: 0;   
+}
+
+#content-container p, li{
+    font-size: 1.2em;
+}
+
+.contact{
+    text-align: center;
+}
