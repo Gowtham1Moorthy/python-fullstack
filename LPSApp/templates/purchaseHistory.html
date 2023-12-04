@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     {% if order.winner and not order.claimed %}
-                        <button class="winner" onclick="showWinnings(this)">!</button>
+                        <button class="winner" onclick="showWinnings(this)">Click for Winnings!</button>
                         <div class="winnings">
                             <p>You won ${{ order.formatted_winning_amount }}!</p>
                             {% if order.winning_amount <= 599 %}
