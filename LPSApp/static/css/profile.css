@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    /* height: 70vh; */
 }
 
 .person {
@@ -20,7 +20,6 @@
     margin: 10px;
     border-radius: 5px;
     text-align: center; 
-    margin-top: 90px;
 }
 
 p, label{
@@ -79,4 +78,8 @@ form input {
     color: var(--body-font);
     box-shadow: 2px 5px 0px var(--primary-dark) ; 
     border-color: var(--primary-bright);
+}
+
+.person h2, .person p{
+    margin-bottom: 0px;
 }
