@@ -1,3 +1,5 @@
+
+
 ul{
     max-width: 800px;
     padding: 0;
@@ -15,6 +17,8 @@ li{
     margin: 10px;
     transition: all .2s ease;
     border-radius: 5px;
+    font-size: 1.2em;
+    text-align: center;
 }
 
 li::marker{
@@ -88,7 +92,7 @@ li.show>div{
     border-radius: 5px;
     cursor: pointer;
     margin: 0 auto;
-  width: 100%;
+    width: 100%;
 }
 
 .claimButton:hover{
