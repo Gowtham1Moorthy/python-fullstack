@@ -46,20 +46,28 @@ def loginUser(request):
         if firstName:
             try:
                 lastName = request.POST.get('lastName')
+                birthday = request.POST.get('birthday')
+                birthdate = datetime.datetime.strptime(birthday, "%m/%d/%y")
+                today = datetime.datetime.today()
+                age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
                 email = request.POST.get('email')
                 confirmPassword = request.POST.get('confirmpassword')
-                if password == confirmPassword:
+                if password == confirmPassword and age>=18:
                     user = User.objects.create_user(email, email, password)
                     user.first_name = firstName
                     user.last_name = lastName
                     user.save()
-                    UserProfile.objects.create(user=user)
+                    UserProfile.objects.create(user=user, birthday=birthday)
                     print('created')
                     login(request, user)
                     return redirect('/home/')
                 else:
-                    print('Passwords dont match')
-                    return render(request, 'login.html',{'passwordError':True})
+                    if password != confirmPassword:
+                        print('Passwords dont match')
+                        return render(request, 'login.html',{'passwordError':True})
+                    else:
+                        print('User is not of legal age.')
+                        return render(request, 'login.html',{'ageError':True})
             except Exception as e:
                 print("Error creating:", e)
                 return render(request, 'login.html',{'emailError':True})

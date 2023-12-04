@@ -11,9 +11,10 @@
                 <h1>Hello {{ user_profile.user.first_name }},</h1>
                 <hr style="width:80%;text-align:center;height:3px;background-color:var(--underline);border:none;">
             </div>
+
+            <p>Username: {{ user_profile.user.username }}</p>
+            <p>User Birthday: {{ user_profile.birthday }}</p>
             {% if cardInfo %}
-                <p>Username: {{ user_profile.user.username }}</p>
-                <p>User Birthday: {{ user_profile.birthday }}</p>
 
                 <h2>Current Saved Card:</h2>
                 <hr style="width:50%;text-align:center;height:2px;background-color:var(--underline);border:none;">

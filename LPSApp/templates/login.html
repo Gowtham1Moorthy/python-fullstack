@@ -38,6 +38,9 @@
                 <input required type="text" name="birthday" autocomplete="birhtday" class="input">
                 <label class="user-label" for="birthday">Birthday</label>
             </div>
+            {% if ageError %}
+            <p class="error">User is too young!</p>
+            {% endif %}
 
             <div class="inputs">
                 <input required type="password" name="password" autocomplete="new-password" class="input">
