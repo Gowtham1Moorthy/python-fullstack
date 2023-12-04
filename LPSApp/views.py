@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import CardForm
 import datetime
+import random
 
 # Create your views here.
 TEMPLATE_DIRS = (
@@ -78,7 +79,13 @@ def loginUser(request):
             return redirect('/login/')
 
 def previousWinner(request):
-    return render(request, 'previousWinner.html')
+    is_logged_in = request.user != AnonymousUser()
+    previousWinners = PreviousWinner.objects.all().order_by('-win_date')
+    main_data = {
+        "loggedIn": is_logged_in,
+        'previousWinners': previousWinners,
+    }
+    return render(request, 'previousWinner.html', main_data)
 
 def privacy(request):
     is_logged_in = request.user != AnonymousUser()
@@ -195,12 +202,15 @@ def purchase(request, ticket):
             # Check with bank
             # if returns true:
             if cardInfo.expiration_date > datetime.date.today():
-                # TODO generate numbers
                 Order.objects.create(
                     user_profile=user_profile,
                     ticket=ticket,
-                    ticketCost=ticketCost
-                    # TODO add numbers to the order
+                    ticketCost=ticketCost,
+                    number_1 = random.randint(0, 69),
+                    number_2 = random.randint(0, 69),
+                    number_3 = random.randint(0, 69),
+                    number_4 = random.randint(0, 69),
+                    number_5 = random.randint(0, 69),
                 )
                 #TODO Send email reciept
                 print('Purchased')
@@ -230,7 +240,7 @@ def purchaseHistory(request, id=None):
             matchedNums = 0
             try:
                 ticket = Ticket.objects.get(name=order.ticket)
-                if order.order_date < ticket.previous_draw_date: # ? not sure if this works I still need to test it
+                if order.order_date < ticket.previous_draw_date:
                     ticketNumbers = [
                         ticket.previuous_draw_number_1,
                         ticket.previuous_draw_number_2,
@@ -261,11 +271,21 @@ def purchaseHistory(request, id=None):
                     winnings = 0
                     if winner:
                         winnings = float(ticket.winning_amount) * percent
+                        try:
+                            previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=winnings,win_date=ticket.previous_draw_date, ticketType=ticket.name)
+                        except:
+                            PreviousWinner.objects.create(
+                                name=f'{user_profile.user.first_name} {user_profile.user.last_name}',
+                                winning_amount=winnings,
+                                win_date=ticket.previous_draw_date,
+                                ticketType=ticket.name,
+                            )
 
                     order.winner = winner
                     order.winning_amount = round(winnings, 2)
                     order.save()
-            except:
+            except Exception as e:
+                print(e)
                 order.ticket = f'{order.ticket} (Discontinued)'
     else:
         order = Order.objects.get(id=id)
