@@ -27,7 +27,7 @@
     <div>
         <h3>Payment Information</h3>
         {% if cardInfo %}
-            <p>Card Number: {{ cardInfo.formatted_card_number }}</p>
+            <p>Card Number: Card ending in {{ cardInfo.last_four_digits }}</p>
             <p>Cardholder Name: {{ cardInfo.cardholder_name }}</p>
             <p>Expiration Date: {{ cardInfo.formatted_expiration_date }}</p>
             <button onclick="changeCard()" class="backButton">Change payment information</button>
