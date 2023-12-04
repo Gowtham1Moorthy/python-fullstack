@@ -2,66 +2,73 @@
 {% block title %}Profile - {% endblock %}
 {% block content %}
 <head>
-
+    <link rel="stylesheet" type="text/css" href="../static/css/profile.css">
 </head>
 <body>
-    <h1>Hello {{ user_profile.user.first_name }},</h1>
-
-    {% if cardInfo %}
-        <h2>Current Saved Card:</h2>
-        <p>Card ending in {{ cardInfo.last_four_digits }},</p>
-        <p>Expires: {{ cardInfo.formatted_expiration_date }}</p>
-        
-        <p>Update your card information:</p>
-        <form method="post" action="{% url 'profile' %}">
-            {% csrf_token %}
-            
-            <label for="card_number">Card Number:</label>
-            <input type="text" id="card_number" name="card_number" value="{{ cardInfo.card_number }}" required>
-            <br>
-            
-            <label for="cardholder_name">Cardholder Name:</label>
-            <input type="text" id="cardholder_name" name="cardholder_name" value="{{ cardInfo.cardholder_name }}" required>
-            <br>
-        
-            <label for="expiration_date">Expiration Date:</label>
-            <input type="month" id="expiration_date" name="expiration_date" value="{{ cardInfo.formatted_expiration_date }}" required>
-            <br>
-        
-            <button type="submit">Update Card</button>
-        </form>
-        {% if cardUpdated %}
-            <p>Card updated successfully!</p>
-        {% endif %}
-        {% if cardError %}
-            <p>Error updating card.</p>
-        {% endif %}
-    {% else %}
-        <p>No saved cards for this user.</p>
-        <p>Please add a card here.</p>
-        <form method="post" action="{% url 'profile' %}">
-            {% csrf_token %}
-            
-            <label for="card_number">Card Number:</label>
-            <input type="text" id="card_number" name="card_number" required>
-            <br>
-            
-            <label for="cardholder_name">Cardholder Name:</label>
-            <input type="text" id="cardholder_name" name="cardholder_name" required>
-            <br>
-        
-            <label for="expiration_date">Expiration Date:</label>
-            <input type="month" id="expiration_date" name="expiration_date" required>
-            <br>
-        
-            <button type="submit">Save Card</button>
-        </form>
-        {% if cardSaved %}
-            <p>Card saved successfully!</p>
-        {% endif %}
-        {% if cardError %}
-            <p>Error saving card.</p>
-        {% endif %}
-    {% endif %}
+    <div class="center-container">
+        <div class="person">
+            <div class="intro">
+                <h1>Hello {{ user_profile.user.first_name }},</h1>
+                <hr style="width:80%;text-align:center;height:3px;background-color:var(--underline);border:none;">
+            </div>
+            {% if cardInfo %}
+                <h2>Current Saved Card:</h2>
+                <p>Card ending in {{ cardInfo.last_four_digits }},</p>
+                <p>Expires: {{ cardInfo.formatted_expiration_date }}</p>
+                
+                <p>Update your card information:</p>
+                <form method="post" action="{% url 'profile' %}">
+                    {% csrf_token %}
+                    
+                    <label for="card_number">Card Number:</label>
+                    <input type="text" id="card_number" name="card_number" value="{{ cardInfo.card_number }}" required>
+                    <br>
+                    
+                    <label for="cardholder_name">Cardholder Name:</label>
+                    <input type="text" id="cardholder_name" name="cardholder_name" value="{{ cardInfo.cardholder_name }}" required>
+                    <br>
+                
+                    <label for="expiration_date">Expiration Date:</label>
+                    <input type="month" id="expiration_date" name="expiration_date" value="{{ cardInfo.formatted_expiration_date }}" required>
+                    <br>
+                
+                    <button type="submit">Update Card</button>
+                </form>
+                {% if cardUpdated %}
+                    <p>Card updated successfully!</p>
+                {% endif %}
+                {% if cardError %}
+                    <p>Error updating card.</p>
+                {% endif %}
+            {% else %}
+                <div>
+                    <p>No saved cards for this user. Please add a card here.</p>
+                    <form method="post" action="{% url 'profile' %}">
+                        {% csrf_token %}
+                        
+                        <label for="card_number">Card Number:</label>
+                        <input type="text" id="card_number" name="card_number" required>
+                        <br>
+                        
+                        <label for="cardholder_name">Cardholder Name:</label>
+                        <input type="text" id="cardholder_name" name="cardholder_name" required>
+                        <br>
+                    
+                        <label for="expiration_date">Expiration Date:</label>
+                        <input type="month" id="expiration_date" name="expiration_date" required>
+                        <br>
+                    
+                        <button class="saveCard" type="submit">Save Card</button>
+                    </form>
+                </div>
+                {% if cardSaved %}
+                    <p>Card saved successfully!</p>
+                {% endif %}
+                {% if cardError %}
+                    <p>Error saving card.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
 </body>
 {% endblock %}
