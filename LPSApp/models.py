@@ -94,3 +94,31 @@ class Order(models.Model):
         formatted_amount = locale.format_string("%.2f", self.winning_amount, grouping=True)
 
         return formatted_amount
+    
+class PreviousWinner(models.Model):
+    name = models.CharField(max_length=200)
+    winning_amount = models.DecimalField(
+        max_digits=12, decimal_places=2,
+        validators=[MinValueValidator(0.00), MaxValueValidator(9999999999.99)],
+        null=True, default=0
+    )
+    win_date = models.DateTimeField(default=timezone.now, null=True)
+    ticketType = models.CharField(max_length=200)
+
+    def formatted_date(self):
+        # Format the win_date to display only month and year
+        formatted_date = self.win_date.strftime("%B %Y")
+
+        return formatted_date
+
+    def __str__(self):
+        return self.name
+    
+    def formatted_winning_amount(self):
+        # Set the locale to use commas for thousands separator
+        locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+
+        # Format the winning_amount using commas
+        formatted_amount = locale.format_string("%.2f", self.winning_amount, grouping=True)
+
+        return formatted_amount
