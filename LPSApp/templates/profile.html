@@ -12,11 +12,16 @@
                 <hr style="width:80%;text-align:center;height:3px;background-color:var(--underline);border:none;">
             </div>
             {% if cardInfo %}
+                <p>Username: {{ user_profile.user.username }}</p>
+                <p>User Birthday: {{ user_profile.birthday }}</p>
+
                 <h2>Current Saved Card:</h2>
-                <p>Card ending in {{ cardInfo.last_four_digits }},</p>
+                <hr style="width:50%;text-align:center;height:2px;background-color:var(--underline);border:none;">
+                <p>Card ending in: {{ cardInfo.last_four_digits }}</p>
                 <p>Expires: {{ cardInfo.formatted_expiration_date }}</p>
                 
-                <p>Update your card information:</p>
+                <h2>Update your card information:</h2>
+                <hr style="width:50%;text-align:center;height:2px;background-color:var(--underline);border:none;">
                 <form method="post" action="{% url 'profile' %}">
                     {% csrf_token %}
                     
