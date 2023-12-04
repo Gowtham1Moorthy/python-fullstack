@@ -4,7 +4,6 @@ from .functions.helper import *
 from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from .forms import CardForm
 import datetime
 
@@ -49,7 +48,6 @@ def loginUser(request):
                 email = request.POST.get('email')
                 confirmPassword = request.POST.get('confirmpassword')
                 if password == confirmPassword:
-                    # TODO implement dob checker
                     user = User.objects.create_user(email, email, password)
                     user.first_name = firstName
                     user.last_name = lastName
