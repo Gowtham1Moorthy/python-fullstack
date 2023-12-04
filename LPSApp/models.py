@@ -37,6 +37,7 @@ class Ticket(models.Model):
     
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    birthday = models.CharField(max_length=20,default=None, null=True)
     # Add additional fields related to the user
 
     def __str__(self):
