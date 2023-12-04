@@ -79,15 +79,14 @@ form input {
 }
 
 .purchaseButton{
-    margin: 0 auto;
+    margin: 0 auto; 
 }
 
 #card_number,
 #cardholder_name,
 #expiration_date{
     background-color: var(--background);
-    text-shadow: var(--font-shadow);
-    color: var(--secondary);
+    color: var(--body-font);
     box-shadow: 2px 5px 0px var(--primary-dark) ; 
     border-color: var(--primary-bright);
 }
