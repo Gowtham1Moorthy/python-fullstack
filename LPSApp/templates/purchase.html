@@ -10,6 +10,7 @@
     
     <div>
         <h3>Ticket Information</h3>
+        <!-- <hr style="width:50%;text-align:center;height:3px;background-color:var(--underline);border:none;"> -->
         <table>
             <tr>
                 <td>Ticket:</td>
@@ -26,6 +27,7 @@
     
     <div>
         <h3>Payment Information</h3>
+        <!-- <hr style="width:50%;text-align:center;height:3px;background-color:var(--underline);border:none;"> -->
         {% if cardInfo %}
             <p>Card Number: {{ cardInfo.formatted_card_number }}</p>
             <p>Cardholder Name: {{ cardInfo.cardholder_name }}</p>
@@ -83,6 +85,7 @@
         
         <div>
             <h3>Payment Details</h3>
+            <!-- <hr style="width:50%;text-align:center;height:3px;background-color:var(--underline);border:none;"> -->
             <table>
                 <tr>
                     <td>Subtotal:</td>
