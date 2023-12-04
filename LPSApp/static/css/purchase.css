@@ -1,3 +1,7 @@
+/* {
+    text-align: center;
+} */
+
 main {
     padding: 20px;
     margin: 0 auto;
@@ -89,4 +93,8 @@ form input {
     color: var(--body-font);
     box-shadow: 2px 5px 0px var(--primary-dark) ; 
     border-color: var(--primary-bright);
+}
+
+button{
+    font-size: 0.9em;
 }
