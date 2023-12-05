@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 form {
     margin: 0 auto;
@@ -66,4 +67,90 @@ button {
 
 button:hover {
     background-color: #45a049;
+=======
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 70vh; */
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    min-width: 300px;
+    background-color: var(--primary);
+    border: none;
+    color: var(--secondary);
+    padding: 20px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
+    margin: 10px;
+    border-radius: 5px;
+    text-align: center; 
+}
+
+p, label{
+    font-size: 1.2em;
+}
+
+.saveCard button{
+    margin: 15px auto;
+    font-size: 1.2em;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.saveCard{
+    background-color: var(--primary);
+    border: none;
+    color: var(--secondary);
+    padding: 10px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
+    margin: 10px;
+    transition: all .2s ease;
+    border-radius: 5px;
+    font-size: 1.1em;
+}
+
+.saveCard:hover{
+    background-color: var(--primary-faded);
+    box-shadow: 3px 2px 0px var(--primary-dark);
+    transform: translateY(3px);
+}
+
+.saveCard:active{
+    background-color: var(--primary-faded);
+    box-shadow: 2px 1px 0px var(--primary-dark);
+    transform: translateY(5px);
+}
+
+#card_number,
+#cardholder_name,
+#expiration_date{
+    background-color: var(--background);
+    color: var(--body-font);
+    box-shadow: 2px 5px 0px var(--primary-dark) ; 
+    border-color: var(--primary-bright);
+}
+
+.person h2, .person p{
+    margin-bottom: 0px;
+>>>>>>> db28147fe889de9fad68f0824f36fcd81a9c7d9b
 }

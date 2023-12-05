@@ -11,18 +11,13 @@
                 <hr>
                 <p>Results for: {{ ticket.previous_draw_date }}</p>
                 <div class="numbers">
-                    <p>{{ ticket.previuous_draw_number_1 }}</p>
-                    <p>{{ ticket.previuous_draw_number_2 }}</p>
-                    <p>{{ ticket.previuous_draw_number_3 }}</p>
-                    <p>{{ ticket.previuous_draw_number_4 }}</p>
-                    <p>{{ ticket.previuous_draw_number_5 }}</p>
-                    {% if ticket.powerball %}
-                        <p class="powerball">{{ ticket.previuous_draw_number_6 }}</p>
-                    {% else %}
-                        <p>{{ ticket.previuous_draw_number_6 }}</p>
-                    {% endif %}
+                    <p>{{ ticket.previous_draw_number_1 }}</p>
+                    <p>{{ ticket.previous_draw_number_2 }}</p>
+                    <p>{{ ticket.previous_draw_number_3 }}</p>
+                    <p>{{ ticket.previous_draw_number_4 }}</p>
+                    <p>{{ ticket.previous_draw_number_5 }}</p>
                 </div>
-                <a href=""></a>
+                <a href="/purchase/{{ticket.name}}" class="purchaseButton">Purchase Ticket</a>
             </div>
         </div>
     {% endfor %}

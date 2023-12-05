@@ -1,18 +1,26 @@
 {% extends "base.html" %}
-{% block title %}HOME - {% endblock %}
+{% block title %}Previous Winners - {% endblock %}
 {% block content %}
 <head>
-
+    <link rel="stylesheet" type="text/css" href="../static/css/previousWinner.css" media="all">
 </head>
 <body>
-    <div class="coverIMGSponsor">
-        <div class="sponsorPic">
-
+    <div class="winners">
+        <h1 class="winner">Previous Winners</h1>
+        {% if previousWinners %}
+            {% for winner in previousWinners %}
+                <div class="winner">
+                    <h2 class="money">${{ winner.formatted_winning_amount }}</h2>
+                    <h2 class="name">{{ winner.name }}</h2>
+                    <h3 class="details">{{ winner.ticket_type }}</h3>
+                    <h3 class="details">{{ winner.formatted_date }}</h3>
+                </div>
+            {% endfor %}
+        {% else %}
+        <div class="winner">
+            <h2 class="name">No previous winners</h2>
         </div>
-        <div class="pageTitleSponsor">
-            <h1 class="sponsorTitle">PREVIOUS WINNERS</h1>
-            <h2 class="sponsorTitleCont">you dirty gamblers!<span class="auto-typed"></span></h2>
-        </div>
+        {% endif %}
     </div>
 </body>
 {% endblock %}

@@ -1,0 +1,40 @@
+.winners {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    margin-top: 90px;
+}
+
+.winner {
+    background-color: var(--primary);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
+    color: var(--secondary);
+    text-align: center;
+}
+
+h1.winner{
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.winner .money{
+    font-size: 36px;
+    margin: 5px;
+}
+
+.winner .name{
+    font-size: 30px;
+    margin: 0;
+}
+
+.winner .details{
+    font-size: 20px;
+    margin: 0;
+}

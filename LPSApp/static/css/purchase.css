@@ -1,0 +1,100 @@
+/* {
+    text-align: center;
+} */
+
+main {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    margin-top: 90px;
+    font-size: 1.2em;
+}
+
+main div {
+    background-color: var(--primary);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
+}
+
+h3, h2, main p,.total, form label, td {
+    color: var(--secondary);
+}
+
+.total {
+    font-weight: bold;
+}
+
+/* Customize input styles */
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.backButton, .saveCard, .purchaseButton, .purchaseLimit{
+    background-color: var(--primary);
+    border: none;
+    color: var(--secondary);
+    padding: 10px;
+    box-shadow: 4px 3px 0px var(--primary-dark);
+    text-shadow: var(--font-shadow);
+    border: 2px var(--primary-bright) solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    transition: all .2s ease;
+    border-radius: 5px;
+}
+
+.backButton:hover, .saveCard:hover, .purchaseButton:hover{
+    background-color: var(--primary-faded);
+    box-shadow: 3px 2px 0px var(--primary-dark);
+    transform: translateY(3px);
+}
+
+.backButton:active, .saveCard:active, .purchaseButton:active{
+    background-color: var(--primary-faded);
+    box-shadow: 2px 1px 0px var(--primary-dark);
+    transform: translateY(5px);
+}
+
+.cardInfoForm{
+    display: none;
+    margin-top: 20px;
+}
+
+.cardInfoForm.show{
+    display: block;
+}
+
+.purchaseButton{
+    margin: 0 auto; 
+}
+
+#card_number,
+#cardholder_name,
+#expiration_date{
+    background-color: var(--background);
+    color: var(--body-font);
+    box-shadow: 2px 5px 0px var(--primary-dark) ; 
+    border-color: var(--primary-bright);
+}
+
+button{
+    font-size: 0.9em;
+}
