@@ -22,7 +22,7 @@
                             <p>{{ order.number_5 }}</p>
                         </div>
                     </div>
-                    {% if order.winner and not order.claimed_status %}
+                    {% if order.winner and not order.claimed %}
                         <button class="winner" onclick="showWinnings(this)">Click for Winnings!</button>
                         <div class="winnings">
                             <p>You won ${{ order.formatted_winning_amount }}!</p>
@@ -36,7 +36,7 @@
                             {% endif %}
                         </div>
                     {% endif %}
-                    {% if order.claimed_status %}
+                    {% if order.claimed %}
                         <p>You claimed ${{ order.formatted_winning_amount }}</p>
                     {% endif %}
                 </li>
