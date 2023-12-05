@@ -1,0 +1,69 @@
+
+form {
+    margin: 0 auto;
+    max-width: 800px;
+  }
+
+head {
+    text-align: center;
+}
+
+#email{
+    
+}
+
+#content-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px; /* Add margin-bottom to space out h1 */
+}
+
+body {
+    text-align: center;
+
+}
+
+h2 {
+    margin-top: 20px;
+    font-size: 1.6em;
+    font-weight: 550;
+    margin-bottom: 10px; /* Add margin-bottom to space out h2 */
+}
+
+#content-container p, li {
+    font-size: 1.2em;
+    text-align: left;
+    margin-bottom: 15px; /* Add margin-bottom to space out p and li */
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}

@@ -3,6 +3,7 @@
 {% block content %}
 <head>
 
+    <link rel="stylesheet" type="text/css" href="../static/css/profile.css">
 </head>
 <body>
     <h1>Hello {{ user_profile.user.first_name }},</h1>
@@ -56,6 +57,11 @@
         
             <button type="submit">Save Card</button>
         </form>
+
+        <div id="email">
+            <button type="button">Change email</button>
+        </div> 
+       
     {% endif %}
 </body>
 {% endblock %}
