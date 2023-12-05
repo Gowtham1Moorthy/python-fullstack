@@ -17,11 +17,11 @@ class Ticket(models.Model):
     )
     next_draw_date = models.DateTimeField(default=timezone.now, null=True)
     previous_draw_date = models.DateTimeField(default=timezone.now, null=True)
-    previuous_draw_number_1 = models.IntegerField(default=None, null=True)
-    previuous_draw_number_2 = models.IntegerField(default=None, null=True)
-    previuous_draw_number_3 = models.IntegerField(default=None, null=True)
-    previuous_draw_number_4 = models.IntegerField(default=None, null=True)
-    previuous_draw_number_5 = models.IntegerField(default=None, null=True)
+    previous_draw_number_1 = models.IntegerField(default=None, null=True)
+    previous_draw_number_2 = models.IntegerField(default=None, null=True)
+    previous_draw_number_3 = models.IntegerField(default=None, null=True)
+    previous_draw_number_4 = models.IntegerField(default=None, null=True)
+    previous_draw_number_5 = models.IntegerField(default=None, null=True)
 
     def formatted_winning_amount(self):
         # Set the locale to use commas for thousands separator
@@ -81,7 +81,6 @@ class Order(models.Model):
         validators=[MinValueValidator(0.00), MaxValueValidator(9999999999.99)],
         null=True, default=0
     )
-    claimed = models.BooleanField(default=False,null=True)
     # TODO Add more order info
 
     def __str__(self):
@@ -95,6 +94,27 @@ class Order(models.Model):
         formatted_amount = locale.format_string("%.2f", self.winning_amount, grouping=True)
 
         return formatted_amount
+    
+    @property
+    def claimed_status(self):
+        # Access the claimed status directly from the Order instance
+        try:
+            return self.claimed_status
+        except ClaimedOrder.DoesNotExist:
+            return None
+        
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Check if the order is a winner before creating ClaimedOrder
+        if self.winner:
+            claimed_order, created = ClaimedOrder.objects.get_or_create(order=self)
+    
+class ClaimedOrder(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='claimed_status')
+    claimed = models.BooleanField(default=False, null=True)
+
+    def __str__(self):
+        return f"Order {self.order.id} by {self.order.user_profile.user.first_name} {self.order.user_profile.user.last_name} won ${self.order.formatted_winning_amount()}"
     
 class PreviousWinner(models.Model):
     name = models.CharField(max_length=200)

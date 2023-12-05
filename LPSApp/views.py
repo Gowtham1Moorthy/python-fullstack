@@ -18,10 +18,12 @@ def index(request):
     if request.method == 'GET':
         ticket_data = Ticket.objects.all().order_by('name')
         purchased = request.GET.get('purchased', False)
+        admin = request.user.is_staff
         main_data = {
             "tickets": ticket_data,
             "loggedIn":True,
             'purchased': purchased,
+            'admin': admin,
         }
         return render(request, 'index.html', main_data)
 
@@ -29,9 +31,11 @@ def browse(request):
     if request.method == 'GET':
         ticket_data = Ticket.objects.all().order_by('name')
         is_logged_in = request.user != AnonymousUser()
+        admin = request.user.is_staff
         main_data = {
             "tickets": ticket_data,
             "loggedIn": is_logged_in,
+            'admin': admin,
         }
         return render(request, 'browse.html', main_data)
 
@@ -89,22 +93,27 @@ def loginUser(request):
 def previousWinner(request):
     is_logged_in = request.user != AnonymousUser()
     previousWinners = PreviousWinner.objects.all().order_by('-win_date')
+    admin = request.user.is_staff
     main_data = {
         "loggedIn": is_logged_in,
         'previousWinners': previousWinners,
+        'admin': admin,
     }
     return render(request, 'previousWinner.html', main_data)
 
 def privacy(request):
     is_logged_in = request.user != AnonymousUser()
+    admin = request.user.is_staff
     main_data = {
         "loggedIn": is_logged_in,
+        'admin': admin,
     }
     return render(request, 'privacy.html', main_data)
 
 @login_required(login_url='/login/')
 def profile(request):
     user_profile = UserProfile.objects.get(user=request.user)
+    admin = request.user.is_staff
     try:
         cardInfo = SavedCard.objects.get(user_profile=user_profile)
     except Exception as e:
@@ -151,12 +160,14 @@ def profile(request):
         'cardUpdated': cardUpdated,
         'cardSaved': cardSaved,
         'cardError': cardError,
+        'admin': admin,
     }
     return render(request, 'profile.html', main_data)
 
 @login_required(login_url='/login/')
 def purchase(request, ticket):
     user_profile = UserProfile.objects.get(user=request.user)
+    admin = request.user.is_staff
     try:
         cardInfo = SavedCard.objects.get(user_profile=user_profile)
     except Exception as e:
@@ -236,6 +247,7 @@ def purchase(request, ticket):
         'cardUpdated': cardUpdated,
         'cardError': cardError,
         'cardExpError': cardExpError,
+        'admin': admin,
     }
     return render(request, 'purchase.html', main_data)
 
@@ -243,19 +255,20 @@ def purchase(request, ticket):
 @login_required(login_url='/login/')
 def purchaseHistory(request, id=None):
     user_profile = UserProfile.objects.get(user=request.user)
+    admin = request.user.is_staff
     orders = Order.objects.filter(user_profile=user_profile).order_by('-order_date')
     if request.method == 'GET':
         for order in orders:
             matchedNums = 0
             try:
                 ticket = Ticket.objects.get(name=order.ticket)
-                if order.order_date < ticket.previous_draw_date:
+                if order.order_date: #  < ticket.previous_draw_date
                     ticketNumbers = [
-                        ticket.previuous_draw_number_1,
-                        ticket.previuous_draw_number_2,
-                        ticket.previuous_draw_number_3,
-                        ticket.previuous_draw_number_4,
-                        ticket.previuous_draw_number_5,
+                        ticket.previous_draw_number_1,
+                        ticket.previous_draw_number_2,
+                        ticket.previous_draw_number_3,
+                        ticket.previous_draw_number_4,
+                        ticket.previous_draw_number_5,
                     ]
 
                     for i in range(1, 6):
@@ -290,16 +303,35 @@ def purchaseHistory(request, id=None):
                                 ticketType=ticket.name,
                             )
 
+                        try:
+                            claimedOrder = ClaimedOrder.objects.get(order=order)
+                        except:
+                            ClaimedOrder.objects.create(order=order,claimed=True)
+
                     order.winner = winner
                     order.winning_amount = round(winnings, 2)
                     order.save()
             except Exception as e:
                 print(e)
+                if order.winner:
+                    try:
+                        previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=order.winning_amount,win_date=order.order_date, ticketType=order.ticket)
+                    except:
+                        PreviousWinner.objects.create(
+                            name=f'{user_profile.user.first_name} {user_profile.user.last_name}',
+                            winning_amount=order.winning_amount,
+                            win_date=order.order_date,
+                            ticketType=order.ticket,
+                        )
+
+                    try:
+                        claimedOrder = ClaimedOrder.objects.get(order=order)
+                    except:
+                        ClaimedOrder.objects.create(order=order,claimed=True)
                 order.ticket = f'{order.ticket} (Discontinued)'
     else:
         order = Order.objects.get(id=id)
-        order.claimed = True
-        order.save()
+        claimedOrder = ClaimedOrder.objects.create(order=order,claimed=True)
         print('Claimed order')
         return redirect('/purchase-history/')
         
@@ -307,19 +339,24 @@ def purchaseHistory(request, id=None):
         "loggedIn":True,
         "user_profile": user_profile,
         "orders": orders,
+        'admin': admin,
     }
     return render(request, 'purchaseHistory.html', main_data)
 
 def responsible(request):
     is_logged_in = request.user != AnonymousUser()
+    admin = request.user.is_staff
     main_data = {
         "loggedIn": is_logged_in,
+        'admin': admin,
     }
     return render(request, 'responsible.html', main_data)
 
 def terms(request):
     is_logged_in = request.user != AnonymousUser()
+    admin = request.user.is_staff
     main_data = {
         "loggedIn": is_logged_in,
+        'admin': admin,
     }
     return render(request, 'terms.html', main_data)
