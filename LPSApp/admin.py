@@ -6,21 +6,24 @@ from django import forms
 admin.site.register(Ticket)
 admin.site.register(UserProfile)
 admin.site.register(SavedCard)
-admin.site.register(Order)
 admin.site.register(PreviousWinner)
 
-class ClaimedOrderForm(forms.ModelForm):
+class OrderForm(forms.ModelForm):
     class Meta:
-        model = ClaimedOrder
+        model = Order
         fields = ['claimed']
 
-class ClaimedOrderAdmin(admin.ModelAdmin):
-    form = ClaimedOrderForm
+class OrderAdmin(admin.ModelAdmin):
+    form = OrderForm
     list_display = ['display_order_id', 'claimed']
 
     def display_order_id(self, obj):
-        return obj.order.id
+        return obj.id
 
     display_order_id.short_description = 'Order ID'
 
-admin.site.register(ClaimedOrder, ClaimedOrderAdmin)
+    def get_queryset(self, request):
+        # Filter orders where winner is True
+        return super().get_queryset(request).filter(winner=True)
+
+admin.site.register(Order, OrderAdmin)
