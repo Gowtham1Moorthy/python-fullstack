@@ -295,14 +295,14 @@ def purchaseHistory(request, id=None):
                         winnings = float(ticket.winning_amount) * percent
                         if winnings >= 600:
                             try:
-                                previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=winnings,win_date=order.order_date, ticket_type=order.ticket)
+                                previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=winnings,win_date=order.order_date, ticketType=order.ticket)
                             except Exception as e:
                                 print(f'at this exception: {e}')
                                 PreviousWinner.objects.create(
                                     name=f'{user_profile.user.first_name} {user_profile.user.last_name}',
                                     winning_amount=winnings,
                                     win_date=order.order_date,
-                                    ticket_type=order.ticket,
+                                    ticketType=order.ticket,
                                 )
 
                     order.winner = winner
@@ -317,14 +317,14 @@ def purchaseHistory(request, id=None):
         order.save()
 
         try:
-            previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=order.winning_amount,win_date=order.order_date, ticket_type=order.ticket)
+            previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=order.winning_amount,win_date=order.order_date, ticketType=order.ticket)
         except Exception as e:
             print(f'at this exception: {e}')
             PreviousWinner.objects.create(
                 name=f'{user_profile.user.first_name} {user_profile.user.last_name}',
                 winning_amount=order.winning_amount,
                 win_date=order.order_date,
-                ticket_type=order.ticket,
+                ticketType=order.ticket,
             )
 
         print('Claimed order')
