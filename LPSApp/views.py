@@ -262,7 +262,7 @@ def purchaseHistory(request, id=None):
             matchedNums = 0
             try:
                 ticket = Ticket.objects.get(name=order.ticket)
-                if order.order_date < ticket.previous_draw_date and not order.claimed:
+                if order.order_date: #  < ticket.previous_draw_date
                     ticketNumbers = [
                         ticket.previous_draw_number_1,
                         ticket.previous_draw_number_2,
@@ -293,40 +293,45 @@ def purchaseHistory(request, id=None):
                     winnings = 0
                     if winner:
                         winnings = float(ticket.winning_amount) * percent
-                        if winnings >= 600:
-                            try:
-                                previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=winnings,win_date=order.order_date, ticketType=order.ticket)
-                            except Exception as e:
-                                print(f'at this exception: {e}')
-                                PreviousWinner.objects.create(
-                                    name=f'{user_profile.user.first_name} {user_profile.user.last_name}',
-                                    winning_amount=winnings,
-                                    win_date=order.order_date,
-                                    ticketType=order.ticket,
-                                )
+                        try:
+                            previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=winnings,win_date=ticket.previous_draw_date, ticketType=ticket.name)
+                        except:
+                            PreviousWinner.objects.create(
+                                name=f'{user_profile.user.first_name} {user_profile.user.last_name}',
+                                winning_amount=winnings,
+                                win_date=ticket.previous_draw_date,
+                                ticketType=ticket.name,
+                            )
+
+                        try:
+                            claimedOrder = ClaimedOrder.objects.get(order=order)
+                        except:
+                            ClaimedOrder.objects.create(order=order,claimed=True)
 
                     order.winner = winner
                     order.winning_amount = round(winnings, 2)
                     order.save()
             except Exception as e:
                 print(e)
+                if order.winner:
+                    try:
+                        previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=order.winning_amount,win_date=order.order_date, ticketType=order.ticket)
+                    except:
+                        PreviousWinner.objects.create(
+                            name=f'{user_profile.user.first_name} {user_profile.user.last_name}',
+                            winning_amount=order.winning_amount,
+                            win_date=order.order_date,
+                            ticketType=order.ticket,
+                        )
+
+                    try:
+                        claimedOrder = ClaimedOrder.objects.get(order=order)
+                    except:
+                        ClaimedOrder.objects.create(order=order,claimed=True)
                 order.ticket = f'{order.ticket} (Discontinued)'
     else:
         order = Order.objects.get(id=id)
-        order.claimed = True
-        order.save()
-
-        try:
-            previousWinner = PreviousWinner.objects.get(name=f'{user_profile.user.first_name} {user_profile.user.last_name}',winning_amount=order.winning_amount,win_date=order.order_date, ticketType=order.ticket)
-        except Exception as e:
-            print(f'at this exception: {e}')
-            PreviousWinner.objects.create(
-                name=f'{user_profile.user.first_name} {user_profile.user.last_name}',
-                winning_amount=order.winning_amount,
-                win_date=order.order_date,
-                ticketType=order.ticket,
-            )
-
+        claimedOrder = ClaimedOrder.objects.create(order=order,claimed=True)
         print('Claimed order')
         return redirect('/purchase-history/')
         
