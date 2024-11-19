@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('LPSApp.urls')),
+    path('grappelli/', include('grappelli.urls')),
 ]

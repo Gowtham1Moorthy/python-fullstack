@@ -27,10 +27,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'                  # For Gmail
+EMAIL_PORT = 587                                # Use 465 for SSL, 587 for TLS
+EMAIL_USE_TLS = True                            # True if using TLS, False if using SSL
+EMAIL_HOST_USER = 'notsecuregowtham@gmail.com'        # Your email address
+EMAIL_HOST_PASSWORD = 'dbpr vjgm vdbw zjkw'           # Your email password or app-specific password
+DEFAULT_FROM_EMAIL = 'notsecuregowtham@gmail.com'     # Default sender
+
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'LPSApp',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -76,10 +88,15 @@ WSGI_APPLICATION = 'LPS.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lucky',  # Database name
+        'USER': 'root',  # MySQL username
+        'PASSWORD': 'root',  # MySQL password
+        'HOST': 'localhost',  # Or the IP address of your MySQL server
+        'PORT': '3306',  # Default MySQL port
     }
 }
+
 
 
 # Password validation

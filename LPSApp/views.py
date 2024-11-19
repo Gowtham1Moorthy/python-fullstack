@@ -12,6 +12,18 @@ import random
 TEMPLATE_DIRS = (
     'os.path.join(BASE_DIR, "templates"),'
 )
+def admindashboard(request):
+    user = User.objects.all().count()
+    tick = Ticket.objects.all().count()
+    ord = Order.objects.all().count()
+    print(tick)
+    context ={
+        'user' :user,
+        'tick' : tick,
+        'ord' : ord,
+
+    }
+    return render(request,'admin_dash.html', context)
 
 @login_required(login_url='/login/')
 def index(request):
@@ -39,6 +51,20 @@ def browse(request):
         }
         return render(request, 'browse.html', main_data)
 
+# views.py
+
+from django.core.mail import send_mail
+from django.conf import settings
+
+def send_welcome_email(mail):
+    subject = 'Welcome to Our Platform'
+    message = 'Thank you for signing up!'
+    recipient_list = [mail]  # List of recipients
+    email_from = settings.DEFAULT_FROM_EMAIL
+    
+    send_mail(subject, message, email_from, recipient_list)
+
+
 def loginUser(request):
     ## TODO on all errors make sure it jumps to that error on the page
     if request.method == 'GET':
@@ -63,8 +89,9 @@ def loginUser(request):
                     user.save()
                     UserProfile.objects.create(user=user, birthday=birthday)
                     print('created')
+                    send_welcome_email(email)
                     login(request, user)
-                    return redirect('/home/')
+                    return redirect('/')
                 else:
                     if password != confirmPassword:
                         print('Passwords dont match')
@@ -89,6 +116,7 @@ def loginUser(request):
             logout(request)
             print('logged out')
             return redirect('/login/')
+        
 
 def previousWinner(request):
     is_logged_in = request.user != AnonymousUser()
@@ -123,36 +151,16 @@ def profile(request):
     cardSaved = False
     
     if request.method == 'POST':
-        form = CardForm(request.POST)
-        if form.is_valid():
-            card_data = form.cleaned_data
-            # Check if the user already has a saved card
-            existing_card = user_profile.savedcard_set.first()
-            if existing_card:
-                # If a card exists, update its details
-                existing_card.card_number = card_data['card_number']
-                existing_card.cardholder_name = card_data['cardholder_name']
-                existing_card.expiration_date = card_data['expiration_date']
-                # Add other fields related to the card information
-                existing_card.save()
-                print('Card updated successfully!')
-                cardUpdated = True
-                cardInfo = SavedCard.objects.get(user_profile=user_profile)
-            else:
-                # If no card exists, create a new one
-                SavedCard.objects.create(
+        r = SavedCard.objects.create(
                     user_profile=user_profile,
-                    card_number=card_data['card_number'],
-                    cardholder_name=card_data['cardholder_name'],
-                    expiration_date=card_data['expiration_date']
+                    card_number=request.POST.get("card_number"),
+                    cardholder_name=request.POST.get("cardholder_name"),
                     # Add other fields related to the card information
                 )
-                print('Card saved successfully!')
-                cardSaved = True
-                cardInfo = SavedCard.objects.get(user_profile=user_profile)
-        else:
-            print('Error saving/updating card.')
-            cardError = True
+        print('Card saved successfully!')
+        r.save()
+        cardSaved = True
+        cardInfo = SavedCard.objects.get(user_profile=user_profile)
     main_data = {
         "loggedIn": True,
         'user_profile': user_profile,
@@ -220,6 +228,22 @@ def purchase(request, ticket):
         else:
             # Check with bank
             # if returns true:
+
+            numbers = random.sample(range(1, 69 + 1), 5)
+            Order.objects.create(
+                user_profile=user_profile,
+                ticket=ticket,
+                ticketCost=ticketCost,
+                number_1 = numbers[0],
+                number_2 = numbers[1],
+                number_3 = numbers[2],
+                number_4 = numbers[3],
+                number_5 = numbers[4],
+            )
+            #TODO Send email reciept
+            print('Purchased')
+            return redirect('/')
+        
             if cardInfo.expiration_date > datetime.date.today():
                 numbers = random.sample(range(1, 69 + 1), 5)
                 Order.objects.create(
@@ -234,7 +258,7 @@ def purchase(request, ticket):
                 )
                 #TODO Send email reciept
                 print('Purchased')
-                return redirect('/home/?purchased=True')
+                return redirect('/')
             else:
                 cardExpError = True
     main_data = {
@@ -355,3 +379,4 @@ def terms(request):
         'admin': admin,
     }
     return render(request, 'terms.html', main_data)
+

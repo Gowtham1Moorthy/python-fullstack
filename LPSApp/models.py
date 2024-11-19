@@ -47,7 +47,7 @@ class SavedCard(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     card_number = models.CharField(max_length=16)
     cardholder_name = models.CharField(max_length=255)
-    expiration_date = models.DateField()
+    expiration_date = models.DateField(default=timezone.now)
 
     def formatted_expiration_date(self):
         # Format the expiration date to display as MM/YYYY

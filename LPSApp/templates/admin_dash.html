@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Admin Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+
+    .header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 40px 0;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      text-align: center;
+      width: 280px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h2 {
+      font-size: 3em;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 1.2em;
+      color: #666;
+    }
+
+    .card-icon {
+      font-size: 2em;
+      color: #007bff;
+      margin-bottom: 15px;
+    }
+
+    .footer {
+      margin-top: 60px;
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.1em;
+    }
+
+    .footer a {
+      color: #ffcc00;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+      gap: 30px;
+    }
+
+    .links a {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .links a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Super Admin Dashboard</h1>
+  </div>
+
+  <div class="container">
+    <div class="card" onclick="window.location.href='/admin/auth/user/'">
+      <div class="card-icon">👤</div>
+      <h2 id="memberCount">{{ user }}</h2>
+      <p>User</p>
+    </div>
+
+    <div class="card"  onclick="window.location.href='/admin/LPSApp/ticket/'">
+      <div class="card-icon">🎫</div>
+      <h2 id="sportCount">{{ tick }}</h2>
+      <p>Tickets</p>
+    </div>
+
+    <div class="card" onclick="window.location.href='/admin/LPSApp/order/'">
+      <div class="card-icon">📦</div>
+      <h2 id="storeCount">{{ ord }}</h2>
+      <p>Orders</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a href="/admin/LPSApp/ticket/add/">Add Ticket</a>
+    <a href="/admin/LPSApp/previouswinner/add/">Choose Winners</a>
+  </div>
+
+  <div class="footer">
+    <p>Super Admin Dashboard &copy; 2024 | All Rights Reserved</p>
+  </div>
+
+</body>
+</html>
